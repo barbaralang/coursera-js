@@ -19,7 +19,7 @@
 
       $scope.checkLunch = function() {
 
-        if($scope.dishList != null){
+        if($scope.dishList != null && $scope.dishList.length > 0){
           var size = $scope.dishList.split(',').length;
           if(size <= 3){
             $scope.lunchMessage = enjoy;
@@ -32,7 +32,7 @@
           $scope.lunchMessage = emptyData;
           $scope.state = danger;
         }
-        
+
       }
 
     }
