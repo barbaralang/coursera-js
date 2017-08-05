@@ -13,7 +13,6 @@
       toBuy.items = ShoppingListCheckOffService.getToBuy();
 
       toBuy.buyItem = function(index, item){
-        console.log(index);
         ShoppingListCheckOffService.removeToBuy(index);
         ShoppingListCheckOffService.addBought(item);
       }
