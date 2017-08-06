@@ -12,10 +12,11 @@
       var narrow = this;
 
       narrow.getMatchedMenuItems = function(){
-        console.log('get menu for ' + narrow.searchTerm);
+        // console.log('get menu for ' + narrow.searchTerm);
         MenuSearchService.getMatchedMenuItems(narrow.searchTerm).then(
           function(result){
             narrow.found = result;
+            // console.log(narrow.found);
           }
         );
       }
@@ -57,11 +58,11 @@
         restrict: 'E',
         templateUrl: 'foundItems.html',
         scope: {
-          foundItems: '<found',
+          foundItems: '<',
           onRemove: '&'
         },
         controller: FoundItemsDirectiveController,
-        controllerAs: 'found',
+        controllerAs: 'list',
         bindToController: true
       };
 
@@ -70,8 +71,8 @@
 
     function FoundItemsDirectiveController(){
       var found = this;
-      console.log(this);
-      console.log(found.foundItems);
+      // console.log(this);
+      // console.log(found.foundItems);
     }
 
 })();
