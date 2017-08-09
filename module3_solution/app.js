@@ -11,14 +11,28 @@
     function NarrowItDownController(MenuSearchService){
       var narrow = this;
 
+      var nothing = "Nothing found";
+
       narrow.getMatchedMenuItems = function(){
-        // console.log('get menu for ' + narrow.searchTerm);
-        MenuSearchService.getMatchedMenuItems(narrow.searchTerm).then(
-          function(result){
-            narrow.found = result;
-            // console.log(narrow.found);
-          }
-        );
+        narrow.error = "";
+        narrow.found = [];
+        if(narrow.searchTerm){
+
+          // console.log('get menu for ' + narrow.searchTerm);
+          MenuSearchService.getMatchedMenuItems(narrow.searchTerm).then(
+            function(result){
+              if(result.length > 0){
+                narrow.error = "";
+                narrow.found = result;
+              }else{
+                narrow.error = nothing;
+              }
+              // console.log(narrow.found);
+            }
+          );
+        }else{
+          narrow.error = nothing;
+        }
       }
 
       narrow.removeItem = function(index){
@@ -31,7 +45,7 @@
       var service = this;
 
       service.getMatchedMenuItems = function(searchTerm){
-        var deffered = $q.defer();
+        var defered = $q.defer();
         return $http({
           url: 'https://davids-restaurant.herokuapp.com/menu_items.json',
           method: 'GET'
@@ -44,8 +58,8 @@
                 foundItemsArray.push(item);
               }
             });
-            deffered.resolve(foundItemsArray);
-            var foundItems = deffered.promise;
+            defered.resolve(foundItemsArray);
+            var foundItems = defered.promise;
             // return processed items
             return foundItems;
           }
@@ -55,10 +69,10 @@
 
     function FoundItemsDirective(){
       var ddo = {
-        restrict: 'E',
+        restrict: 'E', // otherwise it won't work, becaus ethe element AND an attribute is called 'found-items'
         templateUrl: 'foundItems.html',
         scope: {
-          foundItems: '<',
+          found: '<foundItems',
           onRemove: '&'
         },
         controller: FoundItemsDirectiveController,
