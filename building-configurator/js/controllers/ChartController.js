@@ -11,7 +11,7 @@
       var highChart;
       // var parameter = ChartService.getParameter();
 
-       chart.chartData = ChartService.getChartValues();
+       chart.chartData = ChartService.data;
       // chart.getChartData = function(){
       //   var values = [];
       //   // angular.forEach(parameter, function(value, key){

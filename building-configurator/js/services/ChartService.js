@@ -8,23 +8,45 @@
     function ChartService(){
       var chart = this;
 
-      var parameter = {
-        tenants: 60,
-        floor: 70,
-        solar: 30,
-        water: 40,
-        pv: 20,
-        battery: 10
-      }
+      // var parameter = {
+      //   tenants: 60,
+      //   floor: 70,
+      //   solar: 30,
+      //   water: 40,
+      //   pv: 20,
+      //   battery: 10
+      // }
+      //
+      //   var chartValues = [];
+      //   chartValues[0] = chart.data.parameters.tenants;
+      //   chartValues[1] = parameter.floor;
+      //   chartValues[2] = parameter.solar;
+      //   chartValues[3] = parameter.water;
+      //   chartValues[4] = parameter.pv;
+      //   chartValues[5] = parameter.battery;
+      //   console.log(chartValues);
 
-        var chartValues = [];
-        chartValues[0] = parameter.tenants;
-        chartValues[1] = parameter.floor;
-        chartValues[2] = parameter.solar;
-        chartValues[3] = parameter.water;
-        chartValues[4] = parameter.pv;
-        chartValues[5] = parameter.battery;
-        console.log(chartValues);
+        chart.data = {
+          parameters: {
+            tenants: 60,
+            floor: 70,
+            solar: 30,
+            water: 40,
+            pv: 20,
+            battery: 10
+          },
+          chart: [
+          ]
+        }
+
+        chart.data.chart = [
+          chart.data.parameters.tenants,
+          chart.data.parameters.floor,
+          chart.data.parameters.solar,
+          chart.data.parameters.water,
+          chart.data.parameters.pv,
+          chart.data.parameters.battery
+        ]
 
         // function fillChartValues(){
         //   chartValues.length = 0;
@@ -36,16 +58,16 @@
         //
         // fillChartValues();
 
-      function fillChartValues(){
-        chartValues.length = 0;
-        chartValues.push(parameter.tenants);
-        chartValues.push(parameter.floor);
-        chartValues.push(parameter.solar);
-        chartValues.push(parameter.water);
-        chartValues.push(parameter.pv);
-        chartValues.push(parameter.battery);
-        console.log(chartValues);
-      }
+      // function fillChartValues(){
+      //   chartValues.length = 0;
+      //   chartValues.push(parameter.tenants);
+      //   chartValues.push(parameter.floor);
+      //   chartValues.push(parameter.solar);
+      //   chartValues.push(parameter.water);
+      //   chartValues.push(parameter.pv);
+      //   chartValues.push(parameter.battery);
+      //   console.log(chartValues);
+      // }
       //
       // function createChartValues(){
       //   chartValues.length = 0;
@@ -65,22 +87,22 @@
         // console.log(parameter);
         // fillChartValues();
           i++;
-        if(parameters.tenants != null) parameter.tenants = parameters.tenants;
-        if(parameters.floor != null) parameter.floor = parameters.floor;
-        if(parameters.solar != null) parameter.solar = parameters.solar;
-        if(parameters.water != null) parameter.water = parameters.water;
-        if(parameters.pv != null) parameter.pv = parameters.pv;
-        if(parameters.battery != null) parameter.battery = parameters.battery;
+        if(parameters.tenants != null) chart.data.parameters.tenants = parameters.tenants;
+        if(parameters.floor != null) chart.data.parameters.floor = parameters.floor;
+        if(parameters.solar != null) chart.data.parameters.solar = parameters.solar;
+        if(parameters.water != null) chart.data.parameters.water = parameters.water;
+        if(parameters.pv != null) chart.data.parameters.pv = parameters.pv;
+        if(parameters.battery != null) chart.data.parameters.battery = parameters.battery;
       }
 
       chart.getParameter = function(){
-        return parameter;
+        return chart.data.parameters;
       }
 
 
       chart.getChartValues = function(){
 
-        chartValues.push(i);
+        // chartValues.push(i);
         return chartValues;
       }
 
