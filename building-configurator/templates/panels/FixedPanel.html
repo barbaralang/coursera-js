@@ -1,0 +1,44 @@
+<!-- <div class="row">
+  <img ng-src="images/building.png" alt="building">
+</div> -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        Fixed Data
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal">
+          <div class="form-group row">
+            <label class="control-label col-sm-3" for="buildingType">Building Type:</label>
+            <label class="control-label col-sm-9" id="buildingType">Wohnhaus</label>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-3">
+              <label class="control-label" for="numberTenants"># Tenants:</label>
+            </div>
+            <div class="col-sm-2 form-input">
+              <input class="form-control" type="text" id="numberTenants" placeholder="number of tenants" ng-model="fixed.tenantsSlider.value"></input>
+            </div>
+            <div class="col-sm-7">
+              <rzslider rz-slider-model="fixed.tenantsSlider.value"
+                rz-slider-options="fixed.tenantsSlider.options"></rzslider>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-3">
+              <label class="control-label" for="floorSize">Floor Size:</label>
+            </div>
+            <div class="col-sm-2">
+              <input class="form-control" type="text" id="floorSize" placeholder="floor size" ng-model="fixed.floorSlider.value"></input>
+            </div>
+            <div class="col-sm-7">
+              <rzslider rz-slider-model="fixed.floorSlider.value"
+              rz-slider-options="fixed.floorSlider.options"></rzslider>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

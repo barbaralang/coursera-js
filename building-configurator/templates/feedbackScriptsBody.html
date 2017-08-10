@@ -1,0 +1,25 @@
+<script src="../emc-proxy/web_library/dist/jquery-1.9.1.js"></script>
+<script src="../emc-proxy/web_library/dist/jqueryui/jquery-ui.min.js"></script>
+<script src="../emc-proxy/web_library/dist/audio/recorder.js"></script>
+<script src="../emc-proxy/web_library/dist/audio/Fr.voice.js"></script>
+
+<script src="../emc-proxy/web_library/app/js/lib/screenshot/html2canvas_5_0_4.min.js"></script>
+<script src="../emc-proxy/web_library/app/js/lib/screenshot/html2canvas_5_0_4.svg.min.js"></script>
+
+<script src="../emc-proxy/web_library/dist/screenshot/fabric.min.js"></script>
+<script src="../emc-proxy/web_library/dist/screenshot/customiseControls.js"></script>
+<script src="../emc-proxy/web_library/dist/screenshot/spectrum.js"></script>
+<script src="../emc-proxy/web_library/dist/jquery.feedback.min.js"></script>
+<script>
+$(document).ready(function () {
+  $('#feedbackEntryPoint').feedbackPlugin({
+    'distPath': '../emc-proxy/web_library/dist/',
+    'lang': 'en',
+    'fallbackLang': 'en',
+    'defaultStrokeWidth': 4,
+    'applicationId': 2,
+    'apiEndpointRepository': '../emc-proxy/feedback_repository/',
+    'apiEndpointOrchestrator': '../emc-proxy/orchestrator/'
+  });
+});
+</script>

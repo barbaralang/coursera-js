@@ -69,7 +69,7 @@
 
     function FoundItemsDirective(){
       var ddo = {
-        restrict: 'E', // otherwise it won't work, becaus ethe element AND an attribute is called 'found-items'
+        restrict: 'E', // otherwise it won't work, because the element AND an attribute are called 'found-items'
         templateUrl: 'foundItems.html',
         scope: {
           found: '<foundItems',
