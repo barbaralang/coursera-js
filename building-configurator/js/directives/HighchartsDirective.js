@@ -10,12 +10,12 @@
     function HighChartsDirective() {
       return {
         restrict: 'E',
-        template: '<div></div>',
+        template: '<div>{{scope.chartData}}</div>',
         scope: {
           title: '@',
           options: '=',
-          chartData: '<',
-          categories: '<'
+          chartData: '=',
+          chartCategories: '@'
         },
         controller: HighChartsDirectiveController,
         controllerAs: 'hc',
@@ -28,11 +28,11 @@
 
       chart.setTitle({ text: scope.title });
       console.log('Data in Chart');
-      console.log(scope.chartData);
+      console.log(scope.chartData.chart);
       // console.log('Categories in Chart');
-      // console.log(scope.categories);
-      // chart.xAxis[0].setCategories(scope.categories);
-      chart.series[0].setData(scope.chartData);
+      console.log(scope.categories);
+      chart.xAxis[0].setCategories(scope.categories);
+      chart.series[0].setData(scope.chartData.chart);
 
       // scope.$watchCollection('hc.data', function (newValue, oldValue) {
       //   console.log("Old value: ", oldValue);

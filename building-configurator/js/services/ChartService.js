@@ -8,14 +8,19 @@
     function ChartService(){
       var chart = this;
 
-      // var parameter = {
-      //   tenants: 60,
-      //   floor: 70,
-      //   solar: 30,
-      //   water: 40,
-      //   pv: 20,
-      //   battery: 10
-      // }
+      var parameter = {
+        tenants: 60,
+        floor: 70,
+        solar: 30,
+        water: 40,
+        pv: 20,
+        battery: 10
+      }
+
+      var categories = [
+        'tenants', 'floor', 'solar', 'water', 'pv', 'battery'
+      ];
+
       //
       //   var chartValues = [];
       //   chartValues[0] = chart.data.parameters.tenants;
@@ -26,27 +31,60 @@
       //   chartValues[5] = parameter.battery;
       //   console.log(chartValues);
 
-        chart.data = {
-          parameters: {
-            tenants: 60,
-            floor: 70,
-            solar: 30,
-            water: 40,
-            pv: 20,
-            battery: 10
-          },
+        var data = {
+          parameters: parameter,
           chart: [
           ]
         }
 
-        chart.data.chart = [
-          chart.data.parameters.tenants,
-          chart.data.parameters.floor,
-          chart.data.parameters.solar,
-          chart.data.parameters.water,
-          chart.data.parameters.pv,
-          chart.data.parameters.battery
-        ]
+        function init(){
+          console.log('init chart data');
+          data.chart.length = 0;
+          console.log(data.parameters);
+          angular.forEach(categories, function(value){
+            console.log(data.parameters[value]);
+            data.chart.push(data.parameters[value]);
+          });
+        }
+
+        init();
+
+        chart.updateSlider = function(index, value){
+          data.parameters[index] = value;
+          console.log(data.parameters);
+          data.chart[categories.indexOf(index)] = value;
+          console.log(data.chart);
+        }
+
+        // chart.setParameter = function(pars){
+        //   chartValues.splice(0, chartValues.length-1);
+        //   angular.forEach(pars, function(value, key){
+        //     data.p[key] = value;
+        //     // chartValues.push(value);
+        //     console.log(categories.indexOf(key));
+        //     data.c[categories.indexOf(key)] = value;
+        //   });
+        //   console.log(data.p);
+        //   console.log(data.c);
+        //   // chart.data.c = chartValues;
+        // }
+
+        chart.getData = function(){
+          return data;
+        }
+
+        chart.getCategories = function(){
+          return categories;
+        }
+
+        // chart.data.chart = [
+        //   chart.data.parameters.tenants,
+        //   chart.data.parameters.floor,
+        //   chart.data.parameters.solar,
+        //   chart.data.parameters.water,
+        //   chart.data.parameters.pv,
+        //   chart.data.parameters.battery
+        // ]
 
         // function fillChartValues(){
         //   chartValues.length = 0;
@@ -79,32 +117,32 @@
       //
       // fillChartValues();
 
-      var i = 0;
-      chart.setParameter = function(parameters){
-        // angular.forEach(parameters, function(value, key){
-        //   parameter[key] = value;
-        // });
-        // console.log(parameter);
-        // fillChartValues();
-          i++;
-        if(parameters.tenants != null) chart.data.parameters.tenants = parameters.tenants;
-        if(parameters.floor != null) chart.data.parameters.floor = parameters.floor;
-        if(parameters.solar != null) chart.data.parameters.solar = parameters.solar;
-        if(parameters.water != null) chart.data.parameters.water = parameters.water;
-        if(parameters.pv != null) chart.data.parameters.pv = parameters.pv;
-        if(parameters.battery != null) chart.data.parameters.battery = parameters.battery;
-      }
+      // var i = 0;
+      // chart.setParameter = function(parameters){
+      //   // angular.forEach(parameters, function(value, key){
+      //   //   parameter[key] = value;
+      //   // });
+      //   // console.log(parameter);
+      //   // fillChartValues();
+      //     i++;
+      //   if(parameters.tenants != null) chart.data.parameters.tenants = parameters.tenants;
+      //   if(parameters.floor != null) chart.data.parameters.floor = parameters.floor;
+      //   if(parameters.solar != null) chart.data.parameters.solar = parameters.solar;
+      //   if(parameters.water != null) chart.data.parameters.water = parameters.water;
+      //   if(parameters.pv != null) chart.data.parameters.pv = parameters.pv;
+      //   if(parameters.battery != null) chart.data.parameters.battery = parameters.battery;
+      // }
 
-      chart.getParameter = function(){
-        return chart.data.parameters;
-      }
-
-
-      chart.getChartValues = function(){
-
-        // chartValues.push(i);
-        return chartValues;
-      }
+      // chart.getParameter = function(){
+      //   return chart.data.parameters;
+      // }
+      //
+      //
+      // chart.getChartValues = function(){
+      //
+      //   // chartValues.push(i);
+      //   return chartValues;
+      // }
 
       // $scope.$watch('chartValues', function(newValue, oldValue){
       //   console.log('chartValues changed to ' + newValue);

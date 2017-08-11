@@ -11,7 +11,12 @@
       var highChart;
       // var parameter = ChartService.getParameter();
 
-       chart.chartData = ChartService.data;
+       chart.chartData = ChartService.getData();
+
+       chart.getChartData = function(){
+         return chart.chartData;
+       }
+
       // chart.getChartData = function(){
       //   var values = [];
       //   // angular.forEach(parameter, function(value, key){
@@ -19,12 +24,17 @@
       //   // });
       //   return values;
       // }
-      chart.categories = ['tenants', 'floor', 'solar', 'water', 'pv', 'battery'];
+      // chart.categories = ['tenants', 'floor', 'solar', 'water', 'pv', 'battery'];
+      chart.categories = ChartService.getCategories();
+
+      chart.getChartCategories = function(){
+        return chart.categories;
+      }
 
       chart.options =  {
         xAxis: {
-          categories: ['# of Tenants', 'Floor Size', 'Solar', 'Water', 'PV', 'Battery']
-          // categories: []
+          // categories: ['# of Tenants', 'Floor Size', 'Solar', 'Water', 'PV', 'Battery']
+          categories: []
         },
 
         series: [{
@@ -33,23 +43,21 @@
         }]
       };
 
-      chart.getChartCategories = function(){
-        return chart.categories;
-      }
+
 
 
 
         // chart.options.xAxis[0].categories = chart.getChartCategories();
 
-      $scope.$on('updateChart', function(parameters){
-        console.log('update chart with: ' + parameters);
-      });
+      // $scope.$on('updateChart', function(parameters){
+      //   console.log('update chart with: ' + parameters);
+      // });
 
 
-      console.log('Data in ChartController');
-      console.log(chart.chartData);
-      console.log('Categories in ChartController');
-      console.log(chart.categories);
+      // console.log('Data in ChartController');
+      // console.log(chart.chartData);
+      // console.log('Categories in ChartController');
+      // console.log(chart.categories);
       // $scope.$watch('chart.getChartData', function(newValue, oldValue){
       //   // if(newValue === oldValue){
       //   //   return;
