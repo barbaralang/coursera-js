@@ -100,20 +100,6 @@
       parameter.batterySlider.value = ChartService.getData().parameters.battery;
       parameter.pvSlider.value = ChartService.getData().parameters.pv;
 
-      // $scope.$on("slideEnded", function() {
-      //   // user finished sliding a handle
-      //
-      //   var values= {
-      //     solar: parameter.solarSlider.value,
-      //     water: parameter.waterSlider.value,
-      //     battery: parameter.batterySlider.value,
-      //     pv: parameter.pvSlider.value
-      //   }
-      //
-      //   console.log(values);
-      //   ChartService.setParameter(values);
-      // });
-
     }
 
 })();

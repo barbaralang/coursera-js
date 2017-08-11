@@ -5,16 +5,11 @@
     angular.module('BuildingConfiguratorApp')
     .controller('ResultController', ResultController);
 
-    ResultController.$inject = [];
-    function ResultController(){
+    ResultController.$inject = ['ChartService'];
+    function ResultController(ChartService){
       var result = this;
 
-      result.results = {
-        investment: 100,
-        heating: 200,
-        power: 300,
-        random: 400
-      }
+      result.results = ChartService.getResult();
     }
 
 })();

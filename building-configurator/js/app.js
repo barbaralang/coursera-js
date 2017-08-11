@@ -2,7 +2,7 @@
   function() {
     'use strict';
 
-    angular.module('BuildingConfiguratorApp', ['rzModule', 'ngCookies'])
+    angular.module('BuildingConfiguratorApp', ['highcharts-ng', 'rzModule', 'ngCookies'])
     .directive('feedbackScriptsHead', FeedbackScriptsHeadDirective)
     // .directive('feedbackScriptsBody', FeedbackScriptsBodyDirective)
     .directive('ascrNavbar', AscrNavBarDirective)

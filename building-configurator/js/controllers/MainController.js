@@ -81,23 +81,6 @@
         main.signedInUser = 'Guest';
         $cookies.remove('logged');
       }
-
-
-      // $scope.$on('updateRegular', function(event, parameters){
-      //   // on emit from child --> broadcast to all children
-      //   // $scope.$broadcast('updateChart', parameters);
-      //   console.log('Parameter');
-      //   console.log(parameters);
-      //   ChartService.setRegularParameters(parameters);
-      // });
-      //
-      // $scope.$on('updateFixed', function(event, parameters){
-      //   // on emit from child --> broadcast to all children
-      //   // $scope.$broadcast('updateChart', parameters);
-      //   console.log('Parameter');
-      //   console.log(parameters);
-      //   ChartService.setFixedParameters(parameters);
-      // });
     }
 
 })();

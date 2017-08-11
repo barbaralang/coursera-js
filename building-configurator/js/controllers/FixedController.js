@@ -55,23 +55,6 @@
       fixed.tenantsSlider.value = ChartService.getData().parameters.tenants;
       fixed.floorSlider.value = ChartService.getData().parameters.floor;
 
-      // fixed.sliderValues = {
-      //   tenants: fixed.tenantsSlider.value,
-      //   floor: fixed.floorSlider.value
-      // };
-
-      // $scope.$on("slideEnded", function() {
-      //   // user finished sliding a handle
-      //
-      //   var values= {
-      //     tenants: fixed.tenantsSlider.value,
-      //     floor: fixed.floorSlider.value
-      //   }
-      //
-      //   console.log(values);
-      //   ChartService.setParameter(values);
-      // });
-
     }
 
 })();
