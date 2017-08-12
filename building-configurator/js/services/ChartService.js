@@ -42,7 +42,7 @@
           angular.forEach(categories, function(value){
             // console.log(data.parameters[value]);
             data.chart.push(data.parameters[value]);
-            data.results[value] = data.chart[categories.indexOf(value)] * categories.indexOf(value);
+            data.results[value] = data.chart[categories.indexOf(value)] * (categories.indexOf(value)+1);
           });
         }
 
@@ -53,7 +53,7 @@
           console.log(data.parameters);
           data.chart[categories.indexOf(index)] = value;
           console.log(data.chart);
-          data.results[index] = data.chart[categories.indexOf(index)] * categories.indexOf(index);
+          data.results[index] = data.chart[categories.indexOf(index)] * (categories.indexOf(index)+1);
           console.log(data.results);
         }
 
