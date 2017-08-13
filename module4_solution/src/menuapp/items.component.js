@@ -2,10 +2,11 @@
   function() {
     'use strict';
      angular.module('MenuApp')
-     .service('items', ItemsComponent);
-
-     ItemsComponent.$inject = []
-     function ItemsComponent(){
-       var items = this;
-     }
+     .component('items', {
+       restrict: 'E',
+       templateUrl: 'src/menuapp/templates/items.template.html',
+       bindings: {
+         items: '<'
+       }
+    });
 })();
