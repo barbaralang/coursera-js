@@ -1,0 +1,36 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
+  <li class="breadcrumb-item"><a ui-sref="categories">Categories</a></li>
+  <li class="breadcrumb-item active">Items</li>
+</ol>
+
+<h2>Items</h2>
+<div class="well">
+  <loading-spinner></loading-spinner>
+  <div class="list-group">
+    <li class="list-group-item" ng-repeat="item in items.items">
+      <h3>{{item.name}} <small>{{item.short_name}}</small></h3>
+      <p>
+        {{item.description}}
+      </p>
+      <p>
+        <dl class="dl-horizontal">
+          <div ng-if="item.price_small">
+            <dt>Price small:</dt>
+            <dd>{{item.price_small | currency : '$'}}</dd>
+          </div>
+          <div ng-if="item.price_large">
+            <dt>Price large:</dt>
+            <dd>{{item.price_large | currency : '$'}}</dd>
+          </div>
+        </dl>
+        <!-- <div ng-if="item.price_small">
+          <small>Price small: {{item.price_small | currency : '$'}}</small><br>
+
+        <div ng-if="item.price_large">
+          <small>Price large: {{item.price_large | currency : '$'}}</small>
+        </div> -->
+      </p>
+    </li>
+  </div>
+</div>
