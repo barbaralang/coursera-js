@@ -29,7 +29,7 @@
          $http({
            url: ITEMS_FOR_CATEGORIES,
            method: 'GET',
-           parameter: {
+           params: {
              category: categoryShortName
            }
          })
