@@ -1,0 +1,80 @@
+<div class="container">
+  <h2 id="sign-up-title" class="text-center">Sign up</h2>
+
+  <form class="form text-center" name='signupForm' novalidate>
+      <div class="col-md-12">
+        <div class="form-group row">
+          <div class="col-md-6">
+            <input type="text" name="firstname" class="form-control col-md-6" ng-model="signupCtrl.user.firstname" placeholder="first name" id="firstname" required/>
+          </div>
+          <div class="col-md-6">
+            {{ signup.user.firstname }}
+            <span  class="col-md-6" ng-if="signupForm.firstname.$error.required && signupForm.firstname.$touched">
+              first name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <input type="text" name="lastname" class="form-control col-md-6" ng-model="signupCtrl.user.lastname" placeholder="last name" id="lastname"  required/>
+          </div>
+          <div class="col-md-6">
+            {{ signup.user.lastname }}
+            <span  class="col-md-6" ng-if="signupForm.lastname.$error.required && signupCtrl.lastname.$touched">
+              last name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <input type="email" name="email" class="form-control col-md-6" ng-model="signupCtrl.user.email" placeholder="email" id="email"  required/>
+          </div>
+          <div class="col-md-6">
+            {{ signup.user.email }}
+            <span  class="col-md-6" ng-if="signupForm.email.$error.required && signupForm.email.$touched">
+              email is required
+            </span>
+            <span  class="col-md-6" ng-if="signupForm.email.$invalid  && signupForm.email.$touched">
+              email is not valid
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <input type="text" name="phone" class="form-control col-md-6" ng-model="signupCtrl.user.phone" placeholder="phone number ####-#####" id="phone"  pattern="(\d{4})-(\d{5})"/>
+          </div>
+          <div class="col-md-6">
+            {{ signup.user.phone }}
+            <span  class="col-md-6" ng-if="signupForm.phone.$invalid  && signupForm.phone.$touched">
+              phone number is not valid
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <input type="text" name="menuitem" class="form-control col-md-6" ng-model="signupCtrl.user.menuitem" placeholder="favorite menu-item" id="menu-item" required/>
+          </div>
+          <div class="col-md-6">
+            {{ signup.user.menuitem }}
+            <span  class="col-md-6" ng-if="signupForm.menuitem.$error.required && signupForm.menuitem.$touched">
+              menu-item is required
+            </span>
+            <span  class="col-md-6" ng-if="signupCtrl.noMenuItem">
+              {{signupCtrl.noMenuItem}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group col-md-6">
+          <button ng-click="signupCtrl.signUp()" ng-disabled="signupForm.$invalid" class="btn btn-success">Sign up</button>
+          <span>{{signupCtrl.infoSaved}}</span>
+        </div>
+
+      </div>
+    </form>
+
+</div>

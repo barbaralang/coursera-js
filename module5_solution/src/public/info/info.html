@@ -1,0 +1,29 @@
+<div class="container">
+  <h2 id="sign-up-title" class="text-center">My Info</h2>
+
+    <div class="row" ng-if="infoCtrl.userInfo.firstname">
+      <div class="col-md-6">
+        <label for="">First Name:</label> {{infoCtrl.userInfo.firstname}}
+      </div>
+      <div class="col-md-6">
+        <label for="">Last Name:</label> {{infoCtrl.userInfo.lastname}}
+      </div>
+      <div class="col-md-6">
+        <label for="">Email:</label> {{infoCtrl.userInfo.email}}
+      </div>
+      <div class="col-md-6">
+        <label for="">Phone:</label> {{infoCtrl.userInfo.phone}}
+      </div>
+
+      <div class="col-md-6">
+        <label for="">Favorite Menu Item:</label>
+      </div>
+      <menu-item menu-item="infoCtrl.userInfo.menuitemobj">
+      </menu-item>
+    </div>
+
+    <div class="error"  ng-if="!infoCtrl.userInfo.firstname">
+      Not Signed Up Yet. Sign up Now!. The words <a ui-sref="public.signup">Sign up Now!</a>
+    </div>
+
+</div>
