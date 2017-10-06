@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" ng-app="AspernDashboardApp">
+<head>
+  <title>Aspern Energie Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="styles/ng1bs4.css"> -->
+  <!-- <link rel="stylesheet" href="styles/datetimepicker.css"> -->
+  <link rel="stylesheet" href="styles/highcharts-ng.css">
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <div class="container-fluid" ng-controller="MainController as main">
+    <ascr-navbar
+    app="Aspern Dashboard"
+    app-version="0.1"
+    on-logout="main.doLogOut()"
+    on-changelog="main.toggleChangeLog()",
+    login="main.login"
+    signed-in-user="main.signedInUser">
+    </ascr-navbar>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+			<div uib-alert ng-class="'alert-danger'" ng-if="error">{{error}}</div>
+
+			<div uib-alert ng-class="'alert-info'" ng-if="info">{{info}}</div>
+
+			<div uib-alert ng-class="'alert-success'" ng-if="success">{{success}}</div>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+			<div class="card bg-info text-white" ng-show="main.changeLog">
+  				<div class="card-block">
+    				<h3 class="card-title">Change Log</h3>
+  				</div>
+  				<p class="card-text" ng-include="'files/changeLog.txt'">
+  				</p>
+			</div>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  <login-panel
+      username="main.username"
+      password="main.password"
+      remember="main.remember"
+      on-login="main.doLogin()"
+      login="main.login">
+  </login-panel>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<div ng-if="main.login">
+
+  <ui-view></ui-view>
+
+  <div class="card border border-dark">
+    <div class="card-body">
+      <h4 class="card-title">
+        Filter
+      </h4>
+      <div class="card-text">
+        <div class="row">
+          <div class="col-md-2">
+            Genauigkeit
+          </div>
+          <div class="col-md-10">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-secondary active border border-dark">
+                <input type="radio" checked autocomplete="off">Tag
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off">Monat
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off">Jahr
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-5">
+            <label>
+              Von [UTC]:
+            </label>
+            <datetimepicker
+            ng-model="main.dtFrom"
+            show-meridian="false"
+            date-format="{{main.dateFormat}}"
+            datepicker-append-to-body="true"
+            readonly-date="false"
+            disabled-date="false"
+            hidden-time="false"
+            hidden-date="false"
+            name="datetimepickerFrom"
+            show-spinners="true"
+            readonly-time="false"
+            show-button-bar="true"
+            >
+          </datetimepicker>
+        </div>
+        <div class="col-md-5">
+          <label>
+            Bis [UTC]:
+          </label>
+          <datetimepicker
+          ng-model="main.dtTo"
+          show-meridian="false"
+          date-format="{{main.dateFormat}}"
+          datepicker-append-to-body="true"
+          readonly-date="false"
+          disabled-date="false"
+          hidden-time="false"
+          hidden-date="false"
+          name="datetimepickerTo"
+          show-spinners="true"
+          readonly-time="false"
+          show-button-bar="true"
+          >
+        </datetimepicker>
+      </div>
+    </div>
+    </div>
+
+</div>
+</div>
+
+<div>
+  State: {{$rootScope}}
+</div>
+
+</div>
+
+  </div>
+  <script type="text/javascript" src="libs/angular.min.js"></script>
+  <script type="text/javascript" src="libs/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="libs/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="libs/jquery.min.js"></script>
+  <script type="text/javascript" src="libs/tether.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="libs/ng1bs4.js"></script>
+  <script type="text/javascript" src="libs/ui-bootstrap-tpls-2.4.0.min.js"></script>
+  <script type="text/javascript" src="libs/datetimepicker.js"></script>
+  <!-- <script type="text/javascript" src="js/libs/rzslider.min.js"></script> -->
+  <!-- for date conversion -->
+  <script type="text/javascript" src="libs/moment.min.js"></script>
+  <script type="text/javascript" src="libs/highcharts.js"></script>
+  <script type="text/javascript" src="libs/highcharts-ng.min.js"></script>
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <script type="text/javascript" src="src/dashboard/app.js"></script>
+  <script type="text/javascript" src="src/dashboard/routes.js"></script>
+
+  <!-- Controllers -->
+  <script type="text/javascript" src="src/dashboard/controllers/MainController.js"></script>
+  <script type="text/javascript" src="src/dashboard/controllers/HomeController.js"></script>
+  <script type="text/javascript" src="src/dashboard/controllers/DetailController.js"></script>
+
+  <!-- Services -->
+  <script type="text/javascript" src="src/dashboard/services/LoginService.js"></script>
+  <script type="text/javascript" src="src/dashboard/services/DataService.js"></script>
+
+
+</body>
+</html>

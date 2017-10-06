@@ -1,0 +1,51 @@
+ngbs-test .css-test {
+  display: none; }
+ngbs-select {
+  display: block; }
+  ngbs-select .dropdown-menu-inner {
+    max-height: 18rem;
+    overflow-y: auto;
+    overflow-x: hidden; }
+  ngbs-select .selected {
+    font-weight: bold; }
+ngbs-tabs .tab-pane {
+  display: none; }
+  ngbs-tabs .tab-pane.active {
+    display: block; }
+ngbs-pagination {
+  display: block; }
+  ngbs-pagination > .pagination {
+    user-select: none; }
+    ngbs-pagination > .pagination > .page-item.active > span.page-link {
+      background-color: #efefef;
+      color: #636c72; }
+ngbs-progress {
+  display: block;
+  height: 1rem; }
+  ngbs-progress > .progress {
+    height: 100%; }
+    ngbs-progress > .progress > .progress-bar {
+      position: relative; }
+      ngbs-progress > .progress > .progress-bar.animated-progress {
+        transition: width 500ms; }
+      ngbs-progress > .progress > .progress-bar.indeterminate {
+        width: 25%;
+        animation-duration: 2.5s;
+        animation-iteration-count: infinite;
+        animation-name: progress-bar-indeterminate;
+        animation-timing-function: linear; }
+
+@keyframes progress-bar-indeterminate {
+  0% {
+    left: 0; }
+  50% {
+    left: 75%; }
+  100% {
+    left: 0; } }
+      ngbs-progress > .progress > .progress-bar > span {
+        white-space: nowrap; }
+  ngbs-progress > .progress > .progress-bar {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center; }
