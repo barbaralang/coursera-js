@@ -57,7 +57,7 @@
        }
 
        ctrl.onSubmit = function(){
-        var submit = true; 
+        var submit = true;
        }
 
        ctrl.dateTimeNow = function() {
@@ -65,53 +65,53 @@
       };
       ctrl.dateTimeNow();
 
-  ctrl.toggleMinDate = function() {
-    var minDate = new Date();
-    var maxDate = new Date();
-    // set to yesterday
-    minDate.setDate(minDate.getDate() - 1);
-    maxDate.setDate(maxDate.getDate() + 3);
-    ctrl.dateOptions.minDate = ctrl.dateOptions.minDate ? null : minDate;
-//    ctrl.dateOptions.maxDate = ctrl.dateOptions.maxDate ? null : maxDate;
-  };
-
+//   ctrl.toggleMinDate = function() {
+//     var minDate = new Date();
+//     var maxDate = new Date();
+//     // set to yesterday
+//     minDate.setDate(minDate.getDate() - 1);
+//     maxDate.setDate(maxDate.getDate() + 3);
+//     ctrl.dateOptions.minDate = ctrl.dateOptions.minDate ? null : minDate;
+// //    ctrl.dateOptions.maxDate = ctrl.dateOptions.maxDate ? null : maxDate;
+//   };
+//
   ctrl.dateOptions = {
     showWeeks: false,
     startingDay: 0
   };
-
-  ctrl.toggleMinDate();
-
-  // Disable weekend selection
-  ctrl.disabled = function(calendarDate, mode) {
-    return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
-  };
-
-  ctrl.open = function($event,opened) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    ctrl.dateOpened = true;
-  };
-
-  ctrl.dateOpened = false;
-  ctrl.hourStep = 1;
+//
+//   ctrl.toggleMinDate();
+//
+//   // Disable weekend selection
+//   ctrl.disabled = function(calendarDate, mode) {
+//     return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
+//   };
+//
+//   ctrl.open = function($event,opened) {
+//     $event.preventDefault();
+//     $event.stopPropagation();
+//     ctrl.dateOpened = true;
+//   };
+//
+//   ctrl.dateOpened = false;
+//   ctrl.hourStep = 1;
   ctrl.format = "yyyy-MM-dd";
-  ctrl.minuteStep = 15;
-  // add min-time="minTime" to datetimepicker to use this value
-  ctrl.minTime = new Date(0, 0, 0, Math.max(1, ctrl.date.getHours() - 2), 0, 0, 0);
-
-  ctrl.timeOptions = {
-    hourStep: [1, 2, 3],
-    minuteStep: [1, 5, 10, 15, 25, 30]
-  };
-
-  ctrl.showMeridian = true;
-  ctrl.timeToggleMode = function() {
-    ctrl.showMeridian = !ctrl.showMeridian;
-  };
-
-  ctrl.resetHours = function() {
-    ctrl.date.setHours(1);
-  };
-     }
+//   ctrl.minuteStep = 15;
+//   // add min-time="minTime" to datetimepicker to use this value
+//   ctrl.minTime = new Date(0, 0, 0, Math.max(1, ctrl.date.getHours() - 2), 0, 0, 0);
+//
+//   ctrl.timeOptions = {
+//     hourStep: [1, 2, 3],
+//     minuteStep: [1, 5, 10, 15, 25, 30]
+//   };
+//
+  ctrl.showMeridian = false;
+//   ctrl.timeToggleMode = function() {
+//     ctrl.showMeridian = !ctrl.showMeridian;
+//   };
+//
+//   ctrl.resetHours = function() {
+//     ctrl.date.setHours(1);
+//   };
+}
 })();

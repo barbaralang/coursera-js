@@ -29,7 +29,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-sm-9">
-        <datetimepicker
+        <!-- <datetimepicker
         hour-step="hourStep"
         minute-step="minuteStep"
         ng-model="forms.date"
@@ -50,11 +50,20 @@
         min-date="minDate"
         max-date="maxDate"
         >
-        <!-- Use date-ng-click="open($event, opened)" to override date ng-click -->
+      </datetimepicker> -->
+
+      <datetimepicker ng-model="forms.date"
+                date-format="dd-MMM-yyyy"
+                date-options="forms.dateOptions",
+                show-meridian="forms.showMeridian",
+                date-format="{{forms.format}}",
+                show-spinners="false"
+                >
       </datetimepicker>
+
     </div>
     <div class="form-group col-sm-3">
-      <select multiple class="form-control" id="select_personen">
+      <select class="form-control" id="select_personen">
         <option>1</option>
         <option>2</option>
         <option>3</option>
