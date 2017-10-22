@@ -1,0 +1,189 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">Home</li>
+</ol>
+<div class="container-fluid">
+  <div class="row h-100 border border-dark bg-dark text-white">
+    <div class="col-2 my-auto">
+      <h3>Typ / Baufeld</h3>
+    </div>
+    <div class="col-10">
+      <div class="row  text-center">
+        <div class="col-4 border border-dark" ui-sref="detail({subnet: 'D12', minDate: home.dtFrom, maxDate: home.dtTo})"><h2>D12</h2>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-secondary active border border-dark">
+              <input type="radio" checked autocomplete="off"><span class="fa fa-th-large fa"></span> {{home.data.D12.floor | number}} m² </span>
+            </label>
+            <label class="btn btn-secondary border border-dark">
+              <input type="radio" autocomplete="off"><span class="fa fa-user"></span> {{home.data.D12.occupants | number}}
+            </label>
+            <label class="btn btn-secondary border border-dark">
+              <input type="radio" autocomplete="off"><span class="fa fa-home"></span> {{home.data.D12.apartments | number}}
+            </label>
+          </div>
+        </div>
+        <div class="col-4 border border-dark"  ui-sref="detail({subnet: 'D10'})"><h2>D10</h2>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-secondary active border border-dark">
+              <input type="radio" checked autocomplete="off"><span class="fa fa-th-large"></span> {{home.data.D10.floor | number}} m²
+            </label>
+            <label class="btn btn-secondary border border-dark">
+              <input type="radio" autocomplete="off"><span class="fa fa-user"></span> {{home.data.D10.occupants | number}}
+            </label>
+            <label class="btn btn-secondary border border-dark">
+              <input type="radio" autocomplete="off"><i class="fa fa-home"></i> {{home.data.D10.apartments | number}}
+            </label>
+          </div>
+        </div>
+        <div class="col-4 border border-dark"  ui-sref="detail({subnet: 'D08'})"><h2>D08</h2>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-secondary active border border-dark">
+              <input type="radio" checked autocomplete="off"><span class="fa fa-th-large"></span> {{home.data.D08.floor}} m²
+            </label>
+            <label class="btn btn-secondary border border-dark">
+              <input type="radio" autocomplete="off"><span class="fa fa-user"></span> {{home.data.D08.occupants}}
+            </label>
+            <label class="btn btn-secondary border border-dark">
+              <span class="fa fa-home"></span> {{home.data.D08.apartments}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row h-100 border border-dark bg-warning text-white">
+    <div class="col-2 h-100">
+      <div class="row h-100">
+        <div class="col-5 my-auto">
+          <span class="fa fa-bolt fa-4x" style="color:white;"></span>
+        </div>
+        <div class="col-5 my-auto">
+          <span class="align-middle"></span>Elektr. Energie
+        </div>
+        <div class="col-2">
+          <div class="row">
+            <div class="btn-group-vertical" data-toggle="buttons">
+              <label class="btn btn-secondary active border border-dark">
+                <input type="radio" checked autocomplete="off"><span class="fa fa-th-large" style="color:orange;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-user" style="color:orange;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-home" style="color:orange;"></span>
+              </label>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="row h-100">
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D12'})"><h4>{{home.data.D12.power}} kw/h</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D10'})"><h4>{{home.data.D10.power}} kw/h</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D08'})"><h4>{{home.data.D08.power}} kw/h</h4></div>
+      </div>
+    </div>
+  </div>
+  <div class="row border border-dark bg-danger text-white">
+    <div class="col-md-2">
+      <div class="row">
+        <div class="col-5 my-auto">
+          <span class="fa fa-fire fa-4x" style="color:white;"></span>
+        </div>
+        <div class="col-5 my-auto">
+          Heiz-Energie
+        </div>
+        <div class="col-md-2">
+          <div class="row">
+            <div class="btn-group-vertical" data-toggle="buttons">
+              <label class="btn btn-secondary active border border-dark">
+                <input type="radio" checked autocomplete="off"><span class="fa fa-th-large" style="color:darkred;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-user" style="color:darkred;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-home" style="color:darkred;"></span>
+              </label>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="row h-100">
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D12'})"><h4>{{home.data.D12.heating}} kw/h</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D10'})"><h4>{{home.data.D10.heating}} kw/h</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D08'})"><h4>{{home.data.D08.heating}} kw/h</h4></div>
+      </div>
+    </div>
+  </div>
+  <div class="row border border-dark bg-danger text-white">
+    <div class="col-md-2 panel panel-default">
+      <div class="row">
+        <div class="col-5 my-auto">
+          <span class="fa fa-tint fa-4x" style="color:white;"></span>
+        </div>
+        <div class="col-5 my-auto">
+          Warm Wasser
+        </div>
+        <div class="col-md-2">
+          <div class="row">
+            <div class="btn-group-vertical" data-toggle="buttons">
+              <label class="btn btn-secondary active border border-dark">
+                <input type="radio" checked autocomplete="off"><span class="fa fa-th-large" style="color:darkred;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-user" style="color:darkred;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-home" style="color:darkred;"></span>
+              </label>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="row h-100">
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D12'})"><h4>{{home.data.D12.hotWater}} m³</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D10'})"><h4>{{home.data.D10.hotWater}} m³</div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D08'})"><h4>{{home.data.D08.hotWater}} m³</div>
+      </div>
+    </div>
+  </div>
+  <div class="row border border-dark bg-info text-white">
+    <div class="col-md-2 panel panel-default">
+      <div class="row">
+        <div class="col-5 my-auto">
+          <span class="fa fa-tint fa-4x" style="color:white;"></span>
+        </div>
+        <div class="col-5 my-auto">
+          Kalt Wasser
+        </div>
+        <div class="col-md-2">
+          <div class="row">
+            <div class="btn-group flex-column" data-toggle="buttons">
+              <label class="btn btn-secondary active border border-dark">
+                <input type="radio" checked autocomplete="off"><span class="fa fa-th-large" style="color:deepskyblue;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-user" style="color:deepskyblue;"></span>
+              </label>
+              <label class="btn btn-secondary border border-dark">
+                <input type="radio" autocomplete="off"><span class="fa fa-home" style="color:deepskyblue;"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="row h-100">
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D12'})"><h4>{{home.data.D12.coldWater}} m³</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D10'})"><h4>{{home.data.D10.coldWater}} m³</h4></div>
+        <div class="col-4 text-center my-auto" ui-sref="detail({subnet: 'D08'})"><h4>{{home.data.D08.coldWater}} m³</h4></div>
+      </div>
+    </div>
+  </div>
+</div>
