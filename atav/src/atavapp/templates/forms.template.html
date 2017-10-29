@@ -6,13 +6,13 @@
 <h1>Form {{forms.formType}}</h1>
 
 <div class="row w-100">
-  <form class="form">
+  <form class="form w-50">
     <div class="form-row">
       <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_name" placeholder="Name" required>
+        <input type="text" class="form-control" id="input_name" placeholder="Name" required ng-blur="forms.blurCallback($event)">
       </div>
       <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_vorname" placeholder="Vorname" required>
+        <input type="text" class="form-control" id="input_vorname" placeholder="Vorname" required  ng-blur="forms.blurCallback($event)">
       </div>
     </div>
     <div class="form-group">
@@ -20,18 +20,20 @@
     </div>
     <div class="form-row">
       <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_ort" placeholder="Ort" required>
-      </div>
-      <div class="form-group col-sm-6">
+        <!-- {{forms.getData().zipCodes}} -->
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon">PLZ</div>
-        <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
-          <option>1234</option>
+        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" ng-init="forms.selectedZipCode = forms.getData().zipCodes[0].value" aria-describedby="plzHelpblock">
+          <option>PLZ wählen</option>
+        </select>
+        <!-- <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
+          <option ng-repeat="option in forms.getData().zipCodes" value="{{option}}">{{option}}</option> -->
+          <!-- <option>1234</option>
           <option>2234</option>
           <option>3234</option>
           <option>4234</option>
-          <option>5234</option>
-        </select>
+          <option>5234</option> -->
+        <!-- </select> -->
       </div>
         <!-- <label for="select_plz">PLZ</label>
         <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
@@ -42,9 +44,12 @@
           <option>5</option>
         </select> -->
       </div>
+      <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_ort" placeholder="Ort" required>
+      </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-sm-9">
+      <div class="form-group col-sm-7">
         <!-- <datetimepicker
         hour-step="hourStep"
         minute-step="minuteStep"
@@ -67,9 +72,18 @@
         max-date="maxDate"
         >
       </datetimepicker> -->
-      <small id="dateHelpBlock" class="form-text text-muted">
-        Datum
-      </small>
+      <!-- <div class="input-group date">
+        <div class="input-group-addon">Datum</div>
+        <datetimepicker ng-model="forms.date"
+                  date-format="dd-MMM-yyyy"
+                  date-options="forms.dateOptions",
+                  show-meridian="forms.showMeridian",
+                  date-format="{{forms.format}}",
+                  show-spinners="false"
+                  aria-describedby="dateHelpBlock">
+        </datetimepicker>
+      </div> -->
+
       <datetimepicker ng-model="forms.date"
                 date-format="dd-MMM-yyyy"
                 date-options="forms.dateOptions",
@@ -79,17 +93,26 @@
                 aria-describedby="dateHelpBlock">
       </datetimepicker>
     </div>
-    <div class="form-group col-sm-3">
-      <small id="personHelpBlock" class="form-text text-muted">
+    <div class="form-group col-sm-5">
+      <div class="input-group">
+        <div class="input-group-addon">Personen</div>
+        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock">
+          <option>Anzahl Personen wählen</option>
+        </select>
+      </div>
+      <!-- <small id="personHelpBlock" class="form-text text-muted">
         Personen
       </small>
-      <select class="form-control" id="select_personen" aria-describedby="personHelpblock">
+      <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock">
+        <option>Anzahl Personen wählen</option>
+      </select> -->
+      <!-- <select class="form-control" id="select_personen" aria-describedby="personHelpblock">
         <option>1</option>
         <option>2</option>
         <option>3</option>
         <option>4</option>
         <option>5</option>
-      </select>
+      </select> -->
     </div>
   </div>
   <div class="form-row" ng-if="forms.formType=='from'">
@@ -118,7 +141,8 @@
 
 <div class="row">
   <div class="embed-responsive embed-responsive-1by1" ng-hide="false">
-    <iframe class="embed-responsive-item" ng-src="{{forms.getFormUrl()}}" id="iframe" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+    <!-- {{forms.getFormUrl()}} -->
+    <iframe class="embed-responsive-item" ng-src="{{forms.getFormUrl()}}" id="iframe"></iframe>
   </div>
 </div>
 

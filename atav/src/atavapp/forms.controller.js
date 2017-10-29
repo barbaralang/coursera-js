@@ -4,14 +4,45 @@
      angular.module('AtavApp')
      .controller('FormsController', FormsController);
 
-     FormsController.$inject=['formType', '$sce'];
-     function FormsController(formType, $sce) {
+     FormsController.$inject=['formType', '$sce', '$scope'];
+     function FormsController(formType, $sce, $scope) {
        var ctrl = this;
 
        var idMap = {
-         'form_name': 'ff_elem634',
-         'form_vorname': 'ff_elem922'
+         'input_name': 'ff_elem4991',
+         'input_vorname': 'ff_elem5055',
+         'input_strasse': 'ff_elem5123',
+         'input_ort': 'ff_elem5126',
+         'select_plz': 'ff_elem4995',
+         'select_personen': 'ff_elem5062'
        }
+
+       var data = {
+         zipCodes: [],
+         persons: []
+       }
+
+       var zipCodes = [];
+       var persons = [];
+
+       ctrl.getData = function(){
+         return data;
+       }
+
+      //  get data when iframe is loaded
+       var iframe = angular.element('#iframe');
+       iframe.on('load', function() {
+        //  apply changes after load
+         $scope.$apply(function(){
+          ctrl.getZipCodeList();
+          ctrl.getPersonList();
+          console.log(ctrl.getData());
+          ctrl.selectedZipCode = data.zipCodes[0];
+          ctrl.selectedPerson = data.persons[0];
+          ctrl.date = new Date();
+        });
+          // $scope.$apply;
+       });
 
        ctrl.formType = formType;
        ctrl.formPage = 1;
@@ -24,10 +55,12 @@
          return idMap;
        }
 
-       ctrl.getElementById = function(elemId){
+       ctrl.getIframeElementById = function(elemId){
          var id = idMap[elemId];
-         var element = angular.element('#'+id);
-
+         var content = document.getElementById('iframe').contentWindow;
+         var element = content.document.getElementById(id);
+        //  var element = angular.element('#'+id);
+         return element;
        }
 
        ctrl.blurCallback = function($event) {
@@ -37,15 +70,53 @@
 
          ctrl.targetField = $event.target;
          var id = ctrl.getIdMap()[ctrl.targetField.id];
-         var element = angular.element('#iframe');
+        //  var iframe = angular.element('#iframe');
+         var content = document.getElementById('iframe').contentWindow;
+         var el = content.document.getElementById(id);
+        //  var el = angular.element('#iframe').contentWindow.angular.element('#'+id);
+        //  var element = content.angular.element('#'+id);
+         el.value = ctrl.targetField.value;
        };
+
+       ctrl.selectedZipCode;
+       ctrl.selectedPerson;
+
+       ctrl.getZipCodeList = function(){
+         var zipCodes = [];
+         var elem = ctrl.getIframeElementById('select_plz');
+         if (elem != null) {
+           var i;
+           for (i = 0; i < elem.length; i++) {
+             var zipCode = {
+               id: elem.options[i].text,
+               value: elem.options[i].text
+             };
+             data.zipCodes.push(zipCode);
+           }
+         }
+       }
+
+       ctrl.getPersonList = function(){
+         var persons = [];
+         var elem = ctrl.getIframeElementById('select_personen');
+         if (elem != null) {
+           var i;
+           for (i = 0; i < elem.length; i++) {
+             var person = {
+               id: elem.options[i].text,
+               value: elem.options[i].text
+             };
+             data.persons.push(person);
+           }
+         }
+       }
 
        ctrl.getFormNum = function(){
          var num = 0;
            if(ctrl.formType == 'to'){
-             num = 6;
+             num = 83;
            }else if (ctrl.formType == 'from'){
-             num = 7;
+             num = 84;
            }
 
           return num;
