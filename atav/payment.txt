@@ -1,0 +1,31 @@
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_xclick">
+
+<input type="hidden" name="business" value="office@mwdoblinger.at">
+<input type="hidden" name="currency_code" value="EUR">
+<input type="hidden" name="item_name" value="ATAV-Transfer">
+<input type="hidden" name="cancel_return" value="https://www.atav.at/finish_tc_order_nok.php">
+<input type="hidden" name="return" value="https://www.atav.at/finish_tc_order_ok.php">
+
+<input type="hidden" name="amount" value="30.00">
+<input type="hidden" name="item_number" value="1509306256XIT">
+<input type="hidden" name="quantity" value="1">
+<input type="hidden" name="invoice" value="1509306256XIT">
+<input type="hidden" name="handling" value="1.37">
+
+<div><span class="Stil5"><strong>PayPal</strong></span></div>
+<input type="hidden" name="hosted_button_id" value="5VM8QCQFRNJQE">
+<input type="image" src="https://www.paypalobjects.com/de_DE/AT/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal oder direkt per Kreditkarte.">
+<img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
+<form method="post" novalidate="" action="https://www.sofort.com/payment/start" target="_blank">
+	<input name="amount" type="hidden" value="30.85">
+	<input name="currency_id" type="hidden" value="EUR">
+	<input name="reason_1" type="hidden" value="ATAV-Transfer">
+	<input name="reason_2" type="hidden" value="1509306256XIT">
+	<input name="user_id" type="hidden" value="154685">
+	<input name="project_id" type="hidden" value="369892">
+	<input type="image" src="https://images.sofort.com/at/su/100x38.png" border="0" name="submit" alt="Jetzt einfach und schnell online bezahlen – mit Sofortüberweisung.">
+</form>

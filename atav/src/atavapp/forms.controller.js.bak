@@ -9,26 +9,12 @@
        var ctrl = this;
 
        var idMap = {
-         'input_name': ['ff_elem4991', 'ff_elem5121'],
-         'input_vorname': ['ff_elem5055', 'ff_elem5185'],
-         'input_strasse': ['ff_elem4993', 'ff_elem5123'],
-         'input_ort': ['ff_elem4996', 'ff_elem5126'],
-         'select_plz': ['ff_elem4995', 'ff_elem5125'],
-         'select_personen': ['ff_elem5062', 'ff_elem5192'],
-         'date_datum': ['ff_elem4999','ff_elem5129'],
-         'time_hour': ['ff_elem5073','ff_elem5204'],
-         'time_min': ['ff_elem5074','ff_elem5205'],
-         'input_flug': ['ff_elem5153'],
-         'input_ankunft': ['ff_elem5208'],
-         'input_email1': ['ff_elem5003','ff_elem5133'],
-         'input_email2': ['ff_elem5005','ff_elem5135'],
-         'input_tel': ['ff_elem5007','ff_elem5137'],
-         'text_info': ['ff_elem5009','ff_elem5139'],
-         'check_agb': ['ff_elem5011','ff_elem5141'],
-         'check_sms': ['ff_elem5083','ff_elem5218'],
-         'check_zusatz': ['ff_elem5088','ff_elem5223'],
-         'check_erinnerung': ['ff_elem5117'],
-         'button_1': ['ff_elem5012','ff_elem5142']
+         'input_name': 'ff_elem4991',
+         'input_vorname': 'ff_elem5055',
+         'input_strasse': 'ff_elem5123',
+         'input_ort': 'ff_elem5126',
+         'select_plz': 'ff_elem4995',
+         'select_personen': 'ff_elem5062'
        }
 
        var data = {
@@ -44,23 +30,22 @@
        }
 
       //  get data when iframe is loaded
-      //  var iframe = angular.element('#iframe');
-      //  iframe.on('load', function() {
-      //   //  apply changes after load
-      //    ctrl.onIFrameLoad();
-       //
-      //     // $scope.$apply;
-      //  });
+       var iframe = angular.element('#iframe');
+       iframe.on('load', function() {
+         console.log('iframe loaded');
+        ctrl.onIFrameLoad();
+       });
 
        ctrl.onIFrameLoad = function(){
+         //  apply changes after load
           $scope.$apply(function(){
-            ctrl.getZipCodeList();
-            ctrl.getPersonList();
-            console.log(ctrl.getData());
-            ctrl.selectedZipCode = data.zipCodes[0];
-            ctrl.selectedPerson = data.persons[0];
-            ctrl.date = new Date();
-          });
+           ctrl.getZipCodeList();
+           ctrl.getPersonList();
+           console.log(ctrl.getData());
+           ctrl.selectedZipCode = data.zipCodes[0];
+           ctrl.selectedPerson = data.persons[0];
+           ctrl.date = new Date();
+         });
        }
 
        ctrl.formType = formType;
@@ -75,60 +60,26 @@
        }
 
        ctrl.getIframeElementById = function(elemId){
-         var id_arr = idMap[elemId];
+         var id = idMap[elemId];
          var content = document.getElementById('iframe').contentWindow;
-         var found = false;
-         var el;
-         angular.forEach(id_arr, function(value) {
-           if(!found){
-             el = content.document.getElementById(value);
-             if(el != null){
-               found = true;
-             }
-           }
-         });
-         return el;
+         var element = content.document.getElementById(id);
+        //  var element = angular.element('#'+id);
+         return element;
        }
 
        ctrl.blurCallback = function($event) {
-         if($event === null || $event.target === null) {
+         if($event.target === null) {
            return;
          }
 
          ctrl.targetField = $event.target;
-         var id_arr = ctrl.getIdMap()[ctrl.targetField.id];
+         var id = ctrl.getIdMap()[ctrl.targetField.id];
+        //  var iframe = angular.element('#iframe');
          var content = document.getElementById('iframe').contentWindow;
-         var found = false;
-         var el;
-         angular.forEach(id_arr, function(value) {
-           if(!found){
-             el = content.document.getElementById(value);
-             if(el != null){
-               if(ctrl.targetField.id == 'select_plz' || ctrl.targetField.id == 'select_personen'){
-                 el.value = ctrl.targetField.selectedOptions[0].label;
-               }else{
-                 el.value = ctrl.targetField.value;
-               }
-               found = true;
-             }
-           }
-         });
-       };
-
-       ctrl.changeCallback = function(id) {
-
-         var id_arr = ctrl.getIdMap()[id];
-         var content = document.getElementById('iframe').contentWindow;
-         var found = false;
-         var el;
-         angular.forEach(id_arr, function(value) {
-           if(!found){
-             el = content.document.getElementById(value);
-             el.value = ctrl.targetField.selectedOptions[0].label;
-             found = true;
-             }
-           }
-         });
+         var el = content.document.getElementById(id);
+        //  var el = angular.element('#iframe').contentWindow.angular.element('#'+id);
+        //  var element = content.angular.element('#'+id);
+         el.value = ctrl.targetField.value;
        };
 
        ctrl.selectedZipCode;
@@ -136,7 +87,6 @@
 
        ctrl.getZipCodeList = function(){
          var zipCodes = [];
-          data.zipCodes.length = 0;
          var elem = ctrl.getIframeElementById('select_plz');
          if (elem != null) {
            var i;
@@ -152,7 +102,6 @@
 
        ctrl.getPersonList = function(){
          var persons = [];
-         data.persons.length = 0;
          var elem = ctrl.getIframeElementById('select_personen');
          if (elem != null) {
            var i;
@@ -184,8 +133,6 @@
 
        ctrl.onSubmit = function(){
         var submit = true;
-        ctrl.formPage = ctrl.formPage + 1;
-        console.log(ctrl.formPage);
        }
 
        ctrl.dateTimeNow = function() {
@@ -243,8 +190,9 @@
 //   };
 }
 
-function onIFrameLoad(){
-  console.log('iframe in javascript loaded');
-}
+function onLoadFunc() {
+		var ifrm = document.getElementById('iframe');
+		angular.element(ifrm).scope().onIFrameLoad();
+	}
 
 })();

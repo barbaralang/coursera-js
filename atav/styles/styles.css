@@ -72,3 +72,7 @@ input[type="text"] {
 .glyphicon-chevron-down:before {
   content: "\f078";
 }
+
+form {
+  margin-left: 15px;
+}

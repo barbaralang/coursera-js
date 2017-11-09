@@ -15,24 +15,24 @@
 <h1>Form {{forms.formType}}</h1>
 
 <div class="row w-100">
-  <form class="form">
+  <form>
     <div class="form-row">
       <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_name" translate translate-attr-placeholder="FORM_NAME" required ng-blur="forms.blurCallback($event)">
+        <input type="text" class="form-control" id="input_name" placeholder="Name" required ng-blur="forms.blurCallback($event)">
       </div>
       <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_vorname" translate translate-attr-placeholder="FORM_VORNAME" required  ng-blur="forms.blurCallback($event)">
+        <input type="text" class="form-control" id="input_vorname" placeholder="Vorname" required  ng-blur="forms.blurCallback($event)">
       </div>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="input_strasse" translate translate-attr-placeholder="FORM_STRASSE" required>
+      <input type="text" class="form-control" id="input_strasse" placeholder="Strasse und Nr" required ng-blur="forms.blurCallback($event)">
     </div>
     <div class="form-row">
       <div class="form-group col-sm-6">
         <!-- {{forms.getData().zipCodes}} -->
         <div class="input-group mb-2 mb-sm-0">
-        <div class="input-group-addon" translate="FORM_PLZ"></div>
-        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" ng-init="forms.selectedZipCode = forms.getData().zipCodes[0].value" aria-describedby="plzHelpblock">
+        <div class="input-group-addon">PLZ</div>
+        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" ng-init="forms.selectedZipCode = forms.getData().zipCodes[0].value" aria-describedby="plzHelpblock" ng-blur="forms.blurCallback($event)" ng-change="forms.blurCallback($event)">
           <option>PLZ wählen</option>
         </select>
         <!-- <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
@@ -54,7 +54,7 @@
         </select> -->
       </div>
       <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_ort" translate translate-attr-placeholder="FORM_ORT" required>
+        <input type="text" class="form-control" id="input_ort" placeholder="Ort" required ng-blur="forms.blurCallback($event)">
       </div>
     </div>
     <div class="form-row">
@@ -99,13 +99,15 @@
                 show-meridian="forms.showMeridian",
                 date-format="{{forms.format}}",
                 show-spinners="false"
-                aria-describedby="dateHelpBlock">
+                aria-describedby="dateHelpBlock"
+                ng-blur="forms.blurCallback($event)"
+                id="date_datum">
       </datetimepicker>
     </div>
     <div class="form-group col-sm-5">
       <div class="input-group">
-        <div class="input-group-addon"  translate="FORM_PERSONEN"></div>
-        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock">
+        <div class="input-group-addon">Personen</div>
+        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock" ng-blur="forms.blurCallback($event)">
           <option>Anzahl Personen wählen</option>
         </select>
       </div>
@@ -126,25 +128,31 @@
   </div>
   <div class="form-row" ng-if="forms.formType=='from'">
     <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_flug" translate translate-attr-placeholder="FORM_FLUGNR">
+        <input type="text" class="form-control" id="input_flug" placeholder="Flugnummer" ng-blur="forms.blurCallback($event)">
     </div>
     <div class="form-group col-sm-6">
-        <input type="text" class="form-control" id="input_ankunft" translate translate-attr-placeholder="FORM_ANKUNFT">
+        <input type="text" class="form-control" id="input_ankunft" placeholder="Ankunft aus" ng-blur="forms.blurCallback($event)">
     </div>
   </div>
   <div class="form-group">
-    <input type="email" class="form-control" id="input_email" translate translate-attr-placeholder="FORM_EMAIL1">
+    <input type="email" class="form-control" id="input_email1" placeholder="Email" ng-blur="forms.blurCallback($event)">
   </div>
   <div class="form-group">
-    <input type="email" class="form-control" id="input_email2" translate translate-attr-placeholder="FORM_EMAIL2">
+    <input type="email" class="form-control" id="input_email2" placeholder="Email wiederholen" ng-blur="forms.blurCallback($event)">
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" id="input_tel" translate translate-attr-placeholder="FORM_TEL">
+    <input type="text" class="form-control" id="input_tel" placeholder="Telefonnummer" ng-blur="forms.blurCallback($event)">
   </div>
   <div class="form-group">
-    <textarea class="form-control" id="textarea" rows="3" translate translate-attr-placeholder="FORM_INFO"></textarea>
+    <textarea class="form-control" id="text_info" rows="3" placeholder="Bemerkung" ng-blur="forms.blurCallback($event)"></textarea>
   </div>
-  <button class="btn btn-primary" type="submit" ng-click="forms.onSubmit()" translate="FORM_NEXT"></button>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" id="check_agb" ng-blur="forms.blurCallback($event)">
+      Akzeptieren der AGB:
+    </label>
+  </div>
+  <button class="btn btn-primary" type="submit" id="button_1" ng-click="forms.onSubmit()">Next</button>
 </form>
 </div>
 
