@@ -13,6 +13,7 @@
          'input_vorname': ['ff_elem5055', 'ff_elem5185'],
          'input_strasse': ['ff_elem4993', 'ff_elem5123'],
          'input_ort': ['ff_elem4996', 'ff_elem5126'],
+         'input_plz_outside': ['ff_elem5016', 'ff_elem5146'],
          'select_plz': ['ff_elem4995', 'ff_elem5125'],
          'select_personen': ['ff_elem5062', 'ff_elem5192'],
          'date_datum': ['ff_elem4999','ff_elem5129'],
@@ -24,11 +25,14 @@
          'input_email2': ['ff_elem5005','ff_elem5135'],
          'input_tel': ['ff_elem5007','ff_elem5137'],
          'text_info': ['ff_elem5009','ff_elem5139'],
+         'input_klasse': ['ff_elem5051','ff_elem5182'],
+         'input_preis': ['ff_elem5046','ff_elem5176'],
          'check_agb': ['ff_elem5011','ff_elem5141'],
          'check_sms': ['ff_elem5083','ff_elem5218'],
          'check_zusatz': ['ff_elem5088','ff_elem5223'],
          'check_erinnerung': ['ff_elem5117'],
-         'button_1': ['ff_elem5012','ff_elem5142']
+         'button_1': ['ff_elem5012','ff_elem5142'],
+         'button_0': ['ff_elem5012','ff_elem5142']
        }
 
        var data = {
@@ -56,15 +60,28 @@
           $scope.$apply(function(){
             ctrl.getZipCodeList();
             ctrl.getPersonList();
-            console.log(ctrl.getData());
+            // console.log(ctrl.getData());
             ctrl.selectedZipCode = data.zipCodes[0];
             ctrl.selectedPerson = data.persons[0];
-            ctrl.date = new Date();
+            // ctrl.date = new Date();
+
+            // var el = ctrl.getIframeElementById('input_ort');
+            // if(el != null){
+            //   el.addEventListener('change', function(e){
+            //     var target = e.target;
+            //     var ort = ctrl.getElementById('input_ort');
+            //     if(ort != null){
+            //       ort.value = target.value;
+            //     }
+            //   });
+            // }
+
           });
        }
 
        ctrl.formType = formType;
        ctrl.formPage = 1;
+       ctrl.outside = false;
 
        ctrl.today = new Date();
 
@@ -90,6 +107,21 @@
          return el;
        }
 
+       ctrl.getElementById = function(elemId){
+         // var id_arr = idMap[elemId];
+         // var found = false;
+         var el;
+         // angular.forEach(id_arr, function(value) {
+         //   if(!found){
+             el = document.getElementById(elemId);
+           //   if(el != null){
+           //     found = true;
+           //   }
+           // }
+         // });
+         return el;
+       }
+
        ctrl.blurCallback = function($event) {
          if($event === null || $event.target === null) {
            return;
@@ -106,6 +138,15 @@
              if(el != null){
                if(ctrl.targetField.id == 'select_plz' || ctrl.targetField.id == 'select_personen'){
                  el.value = ctrl.targetField.selectedOptions[0].label;
+                 el.onchange();
+                 // if(ctrl.targetField.id == 'select_plz'){
+                 //   if(ctrl.targetField.selectedOptions[0].label != 'außerhalb Wien'){
+                 //      var ort = ctrl.getElementById('input_ort');
+                 //      ort.value = 'WIEN';
+                 //   }
+                 // }
+               }else if(ctrl.targetField.id == 'check_agb' || ctrl.targetField.id == 'check_sms' || ctrl.targetField.id == 'check_zusatz'){
+                 el.checked = ctrl.targetField.checked;
                }else{
                  el.value = ctrl.targetField.value;
                }
@@ -113,9 +154,37 @@
              }
            }
          });
-       };
+       }
 
-       ctrl.changeCallback = function(id) {
+       ctrl.onSelect = function(item, id){
+         var el = ctrl.getElementById(id);
+         if(id == 'select_plz'){
+           if(el.selectedOptions[0].label != 'ausserhalb Wien'){
+              var ort = ctrl.getElementById('input_ort');
+              ort.value = 'WIEN';
+              ctrl.outside = false;
+           }else{
+             ctrl.outside = true;
+           }
+         }
+       }
+
+       // ctrl.selectCallback = function(id) {
+       //
+       //   var id_arr = ctrl.getIdMap()[id];
+       //   var content = document.getElementById('iframe').contentWindow;
+       //   var found = false;
+       //   var el;
+       //   angular.forEach(id_arr, function(value) {
+       //     if(!found){
+       //       el = content.document.getElementById(value);
+       //       el.value = ctrl.targetField.selectedOptions[0].label;
+       //       found = true;
+       //       }
+       //    });
+       // }
+
+       ctrl.checkCallback = function(id) {
 
          var id_arr = ctrl.getIdMap()[id];
          var content = document.getElementById('iframe').contentWindow;
@@ -124,12 +193,11 @@
          angular.forEach(id_arr, function(value) {
            if(!found){
              el = content.document.getElementById(value);
-             el.value = ctrl.targetField.selectedOptions[0].label;
+             el.checked = ctrl.targetField.checked;
              found = true;
              }
-           }
-         });
-       };
+          });
+       }
 
        ctrl.selectedZipCode;
        ctrl.selectedPerson;
@@ -156,7 +224,7 @@
          var elem = ctrl.getIframeElementById('select_personen');
          if (elem != null) {
            var i;
-           for (i = 0; i < elem.length; i++) {
+           for (i = 0; i < 5; i++) {
              var person = {
                id: elem.options[i].text,
                value: elem.options[i].text
@@ -184,14 +252,24 @@
 
        ctrl.onSubmit = function(){
         var submit = true;
-        ctrl.formPage = ctrl.formPage + 1;
+        var el = ctrl.getIframeElementById('button_1');
+        el.click();
+        ctrl.formPage++;
+        console.log(ctrl.formPage);
+       }
+
+       ctrl.onBack = function(){
+        var submit = true;
+        if(ctrl.formPage > 0){
+          ctrl.formPage--;
+        }
         console.log(ctrl.formPage);
        }
 
        ctrl.dateTimeNow = function() {
          ctrl.date = new Date();
       };
-      ctrl.dateTimeNow();
+      // ctrl.dateTimeNow();
 
 //   ctrl.toggleMinDate = function() {
 //     var minDate = new Date();
