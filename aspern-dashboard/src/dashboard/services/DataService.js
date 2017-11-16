@@ -11,34 +11,101 @@
       var energyTypes = ['power', 'heating', 'hotWater', 'coldWater'];
       data.minDate = moment(new Date()).startOf('month').toDate();
       data.maxDate = moment(new Date()).toDate();
+      data.dateFilter = 'day';
+      data.btnKumuliert = true;
+
+      data.setMinDate = function(minDate){
+        data.minDate = minDate;
+      }
+
+      data.setMaxDate = function(maxDate){
+        data.maxDate = maxDate;
+      }
+
+      data.setDateFilter = function(dateFilter){
+        data.dateFilter = dateFilter;
+      }
+
+      data.setKumuliert = function(kumuliert){
+        data.btnKumuliert = kumuliert;
+      }
+
+      var resolutions = {
+        '5 min': 20,
+        '15 min': 40,
+        '30 min': 50,
+        'hours': 60,
+        'days': 70,
+        'weeks': 2,
+        'months': 3,
+        'years': 4
+      }
+
+      var meters ={
+        'D12': {
+          power: 1627627,
+          heating: 1627587,
+          hotwater: 1627589
+        },
+        'D12_A': {
+          power: 1625543
+        },
+        'D12_B': {
+          power: 1625545
+        },
+        'D12_C': {
+          power: 1625547
+        },
+        'D12_D': {
+          power: 1625548
+        },
+        'D12_E': {
+          power: 1625549
+        },
+        'D12_F': {
+          power: 1625551
+        }
+      }
 
       var homeData = {
         'D12' : {
-          floor: 16000,
-          apartments: 213,
-          occupants: 300,
-          power: 1234,
-          heating: 2414,
-          hotWater: 28,
-          coldWater: 42
+          'meta_data': {
+            floor: 16000,
+            apartments: 213,
+            occupants: 300
+          },
+          'values': {
+            power: 1234,
+            heating: 2414,
+            hotWater: 28,
+            coldWater: 42
+          }
         },
         'D10' : {
-          floor: 25000,
-          apartments: 313,
-          occupants: 430,
-          power: 1850,
-          heating: 3760,
-          hotWater: 42,
-          coldWater: 63
+          'meta_data': {
+            floor: 25000,
+            apartments: 313,
+            occupants: 430
+          },
+          'values': {
+            power: 1850,
+            heating: 3760,
+            hotWater: 42,
+            coldWater: 63
+          }
         },
         'D08' : {
-          floor: 8000,
-          apartments: 50,
-          occupants: 120,
-          power: 734,
-          heating: 944,
-          hotWater: 11,
-          coldWater: 17
+          'meta_data': {
+            floor: 8000,
+            apartments: 50,
+            occupants: 120
+          },
+          'values': {
+            power: 734,
+            heating: 944,
+            hotWater: 11,
+            coldWater: 17
+          }
         }
       }
 
@@ -46,74 +113,172 @@
 
       var detailData = {
         'A' : {
-          floor: 4000,
-          apartments: 60,
-          occupants: 75,
-          power: 300,
-          heating: 350,
-          hotWater: 7,
-          coldWater: 11
+          'meta_data': {
+            floor: 4000,
+            apartments: 60,
+            occupants: 75
+          },
+          'values': {
+            power: 300,
+            heating: 350,
+            hotWater: 7,
+            coldWater: 11
+          }
         },
         'B' : {
-          floor: 4000,
-          apartments: 78,
-          occupants: 75,
-          power: 350,
-          heating: 370,
-          hotWater: 10,
-          coldWater: 16
+          'meta_data': {
+            floor: 4000,
+            apartments: 78,
+            occupants: 75
+          },
+          'values': {
+            power: 350,
+            heating: 370,
+            hotWater: 10,
+            coldWater: 16
+          }
         },
         'C' : {
-          floor: 4000,
-          apartments: 74,
-          occupants: 80,
-          power: 320,
-          heating: 355,
-          hotWater: 11,
-          coldWater: 17
+          'meta_data': {
+            floor: 4000,
+            apartments: 74,
+            occupants: 80
+          },
+          'values':{
+            power: 320,
+            heating: 355,
+            hotWater: 11,
+            coldWater: 17
+          }
         }
       }
 
       var currentDetailData = angular.copy(detailData);
 
+      function init(){
+        console.log('init');
+        var tmp = angular.copy(homeData);
+
+        var floor;
+        var occupants;
+        var apartments;
+
+        homeData.total = {};
+        angular.forEach(tmp, function(obj, key) {
+            floor =+ obj.floor;
+            occupants =+ obj.occupants;
+            apartments =+ obj.apartments;
+        });
+
+        homeData.total.floor = floor;
+        homeData.total.occupants = occupants;
+        homeData.total.apartments = apartments;
+      }
+
+      init();
+
       data.getHomeData = function() {
         return homeData;
       }
 
-      data.getCurrentHomeData = function(params) {
-        console.log(params);
-        if(params != null){
-          var filter_array = params.split('_');
-          var filterName = filter_array[0];
-          var filterProperty = filter_array[1];
-          var filterValue;
-
-          if(homeData.hasOwnProperty(filterName)){
-            filterValue = homeData.filterName.filterProperty;
-            angular.forEach(homeData.filterName, function(value, key) {
-              var newValue = null;
-              if(energyTypes.indexOf(key) !== -1){
-                newValue = value / filterValue;
-                console.log('new Value: ' + newValue);
-                currentHomeData.filterName.key = newValue;
-              }
-            }, item);
-          }
-          if(params.hasOwnProperty('energyType')){
-            var energyType = params.energyType;
-            var origData = DataService.getHomeData();
-            angular.forEach(origData, function(value, key) {
-              var filterValue = origData[key][filter];
-              var newValue = value.energyType / filterValue;
-              currentHomeData.key.energyType = newValue;
-            }, item);
-
-          }
-          else if(params.hasOwnProperty('subnet')){
-            var subnet = params.subnet;
-          }
-        }
+      data.getCurrentHomeData = function() {
         return currentHomeData;
+      }
+
+      data.resetCurrentHomeData = function(){
+        currentHomeData = angular.copy(homeData);
+      }
+
+      data.getDetailData = function() {
+        return detailData;
+      }
+
+      data.getCurrentDetailData = function() {
+        return currentDetailData;
+      }
+
+      data.resetCurrentDetailData = function(){
+        currentDetailData = angular.copy(detailData);
+      }
+
+      data.setSubnetFilter = function(subnetFilter, type){
+        data.subnetFilter = subnetFilter;
+        if(type == 'detail'){
+          data.filterDetailSubnet();
+        }else{
+          data.filterHomeSubnet();
+        }
+      }
+
+      data.setEnergyTypeFilter = function(energyTypeFilter, type){
+        data.energyTypeFilter = energyTypeFilter;
+        if(type == 'detail'){
+          data.filterDetailEnergyType();
+        }else{
+          data.filterHomeEnergyType();
+        }
+      }
+
+      data.filterHomeSubnet = function(){
+        data.filterSubnet(data.getHomeData(), data.getCurrentHomeData());
+      }
+
+      data.filterDetailSubnet = function(){
+        data.filterSubnet(data.getDetailData(), data.getCurrentDetailData());
+      }
+
+      data.filterHomeEnergyType = function(){
+        data.filterEnergyType(data.getHomeData(), data.getCurrentHomeData());
+      }
+
+      data.filterDetailEnergyType = function(){
+        data.filterEnergyType(data.getDetailData(), data.getCurrentDetailData());
+      }
+
+      data.filterSubnet = function(subnetData, currentSubnetData){
+        angular.forEach(data.subnetFilter, function(filter, subnet){
+            console.log('subnet: ' + subnet + ' filter: ' + filter);
+          if(filter != null){
+            console.log(subnetData[subnet].values);
+            angular.forEach(subnetData[subnet].values, function(value, energyType){
+              console.log('subnet: ' + subnet + ' filter: ' + filter + ' energyType: ' + energyType + ' value: ' + value);
+              currentSubnetData[subnet]['values'][energyType] = Math.round(value / filter);
+              console.log(currentSubnetData);
+            });
+          }else{ // filter unchecked
+            angular.forEach(subnetData[subnet].values, function(value, energyType){
+              console.log('subnet: ' + subnet + ' filter: ' + filter + ' energyType: ' + energyType + ' value: ' + value);
+              currentSubnetData[subnet]['values'][energyType] = subnetData[subnet]['values'][energyType];
+              console.log(currentSubnetData);
+            });
+          }
+        });
+
+      }
+
+      data.filterEnergyType = function(energyTypeData, currentEnergyTypeData){
+        angular.forEach(data.energyTypeFilter, function(filter, energyType){
+          console.log('energyType: ' + energyType + ' filter: ' + filter);
+          if(filter != null){
+            angular.forEach(energyTypeData, function(item, subnet){
+              if(subnet !== 'total'){
+                console.log('item: ' + JSON.stringify(item) + ' subnet: ' + subnet);
+                var value = item['values'][energyType];
+                var myfilter = energyTypeData[subnet]['meta_data'][filter];
+                currentEnergyTypeData[subnet]['values'][energyType] = Math.round(value / myfilter);
+                console.log(currentEnergyTypeData);
+              }
+            });
+          }else{ // filter unchecked
+            angular.forEach(currentEnergyTypeData, function(item, subnet){
+              if(subnet !== 'total'){
+                console.log('item: ' + JSON.stringify(item) + ' subnet: ' + subnet);
+                currentEnergyTypeData[subnet]['values'][energyType] = energyTypeData[subnet]['values'][energyType];
+                console.log(currentEnergyTypeData);
+              }
+            });
+          }
+        });
       }
 
       data.getDetailData = function(subnet) {
@@ -124,95 +289,6 @@
       data.getCurrentDetailData = function(subnet) {
         return detailCurrentData;
       }
-
-      // var start = 0;
-      // var end = 100;
-      //
-      // // TODO get data from remote service
-      // var parameter = {
-      //   tenants: 60,
-      //   floor: 70,
-      //   solar: 30,
-      //   water: 40,
-      //   pv: 20,
-      //   battery: 10
-      // }
-      //
-      // var categories = [
-      //   'tenants', 'floor', 'solar', 'water', 'pv', 'battery'
-      // ];
-      //
-      // var title = 'Chart';
-      //
-      // var result = [];
-      //
-      //   var data = {
-      //     parameters: parameter,
-      //     data: [
-      //     ],
-      //     results: result
-      //   }
-      //
-      //   function init(){
-      //     console.log('init data data');
-      //     data.data.length = 0;
-      //     console.log(data.parameters);
-      //     console.log(data.results);
-      //     var i = 0;
-      //     calculateChart();
-      //     console.log(JSON.stringify(data.results));
-      //   }
-      //
-      //   init();
-      //
-      //   data.updateSlider = function(index, value){
-      //     data.parameters[index] = value;
-      //     console.log(data.parameters);
-      //     // data.data[categories.indexOf(index)] = value;
-      //     // console.log(data.data);
-      //     // data.results[index] = data.data[categories.indexOf(index)] * (categories.indexOf(index)+1);
-      //     calculateChart();
-      //     console.log(JSON.stringify(data.results));
-      //   }
-      //
-      //   function calculateChart(){
-      //     data.results.length = 0;
-      //     data.data.length = 0;
-      //     angular.forEach(numberRange(start, end), function(x){
-      //       // var y = data.parameters.tenants + data.parameters.floor /( data.parameters.solar * x + data.parameters.water * (x) + data.parameters.pv * (x) + data.parameters.battery * (x));
-      //       // var y = (data.parameters.tenants + data.parameters.floor) + (Math.pow(x,2) / ( data.parameters.solar + data.parameters.water + data.parameters.pv + data.parameters.battery));
-      //       var y = data.parameters.tenants - data.parameters.floor/150 * x + (Math.pow(x,2)/25 * ( data.parameters.solar + data.parameters.water + data.parameters.pv + data.parameters.battery) /400);
-      //       var point = [x,y];
-      //       // data.results.push(point);
-      //       data.data.push(point);
-      //     });
-      //
-      //     angular.forEach(categories, function(value){
-      //       // console.log(data.parameters[value]);
-      //       data.results[value] = data.parameters[value] * (categories.indexOf(value)+1);
-      //     });
-      //   }
-      //
-      //   function numberRange (start, end) {
-      //     return new Array(end - start).fill().map((d, i) => i + start);
-      //   }
-      //
-      //   data.getTitle = function(){
-      //     return title;
-      //   }
-      //
-      //   data.getData = function(){
-      //     return data;
-      //   }
-      //
-      //   data.getCategories = function(){
-      //     return categories;
-      //   }
-      //
-      //   data.getResult = function(){
-      //     return result;
-      //   }
-
     }
 
 })();
