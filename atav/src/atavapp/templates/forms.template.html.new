@@ -1,0 +1,169 @@
+<script type="text/javascript">
+  $(function() {
+    $('#iframe').load(function(){
+      console.log($('#iframe').scope().forms);
+      $('#iframe').scope().forms.onIFrameLoad();
+    });
+  });
+</script>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
+  <li class="breadcrumb-item active">Form {{forms.formType}}</li>
+</ol>
+
+<h1>Form {{forms.formType}}</h1>
+
+<div class="row w-100">
+  <form>
+    <div class="form-row">
+      <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_name" placeholder="Name" required ng-blur="forms.blurCallback($event)">
+      </div>
+      <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_vorname" placeholder="Vorname" required  ng-blur="forms.blurCallback($event)">
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="input_strasse" placeholder="Strasse und Nr" required ng-blur="forms.blurCallback($event)">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-6">
+        <!-- {{forms.getData().zipCodes}} -->
+        <div class="input-group mb-2 mb-sm-0">
+        <div class="input-group-addon">PLZ</div>
+        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" ng-init="forms.selectedZipCode = forms.getData().zipCodes[0].value" aria-describedby="plzHelpblock" ng-blur="forms.blurCallback($event)" ng-change="forms.blurCallback($event)">
+          <option>PLZ wählen</option>
+        </select>
+        <!-- <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
+          <option ng-repeat="option in forms.getData().zipCodes" value="{{option}}">{{option}}</option> -->
+          <!-- <option>1234</option>
+          <option>2234</option>
+          <option>3234</option>
+          <option>4234</option>
+          <option>5234</option> -->
+        <!-- </select> -->
+      </div>
+        <!-- <label for="select_plz">PLZ</label>
+        <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select> -->
+      </div>
+      <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_ort" placeholder="Ort" required ng-blur="forms.blurCallback($event)">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-7">
+        <!-- <datetimepicker
+        hour-step="hourStep"
+        minute-step="minuteStep"
+        ng-model="forms.date"
+        show-meridian="showMeridian"
+        date-format="{{forms.format}}"
+        date-options="dateOptions"
+        date-disabled="disabled(date, mode)"
+        datepicker-append-to-body="false"
+        readonly-date="false"
+        disabled-date="false"
+        hidden-time="false"
+        hidden-date="false"
+        name="datetimepicker"
+        show-spinners="true"
+        readonly-time="false"
+        date-opened="dateOpened"
+        show-button-bar="false"
+        min-date="minDate"
+        max-date="maxDate"
+        >
+      </datetimepicker> -->
+      <!-- <div class="input-group date">
+        <div class="input-group-addon">Datum</div>
+        <datetimepicker ng-model="forms.date"
+                  date-format="dd-MMM-yyyy"
+                  date-options="forms.dateOptions",
+                  show-meridian="forms.showMeridian",
+                  date-format="{{forms.format}}",
+                  show-spinners="false"
+                  aria-describedby="dateHelpBlock">
+        </datetimepicker>
+      </div> -->
+
+      <datetimepicker ng-model="forms.date"
+                date-format="dd-MMM-yyyy"
+                date-options="forms.dateOptions",
+                show-meridian="forms.showMeridian",
+                date-format="{{forms.format}}",
+                show-spinners="false"
+                aria-describedby="dateHelpBlock"
+                ng-blur="forms.blurCallback($event)"
+                id="date_datum">
+      </datetimepicker>
+    </div>
+    <div class="form-group col-sm-5">
+      <div class="input-group">
+        <div class="input-group-addon">Personen</div>
+        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock" ng-blur="forms.blurCallback($event)">
+          <option>Anzahl Personen wählen</option>
+        </select>
+      </div>
+      <!-- <small id="personHelpBlock" class="form-text text-muted">
+        Personen
+      </small>
+      <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock">
+        <option>Anzahl Personen wählen</option>
+      </select> -->
+      <!-- <select class="form-control" id="select_personen" aria-describedby="personHelpblock">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select> -->
+    </div>
+  </div>
+  <div class="form-row" ng-if="forms.formType=='from'">
+    <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_flug" placeholder="Flugnummer" ng-blur="forms.blurCallback($event)">
+    </div>
+    <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_ankunft" placeholder="Ankunft aus" ng-blur="forms.blurCallback($event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" id="input_email1" placeholder="Email" ng-blur="forms.blurCallback($event)">
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" id="input_email2" placeholder="Email wiederholen" ng-blur="forms.blurCallback($event)">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="input_tel" placeholder="Telefonnummer" ng-blur="forms.blurCallback($event)">
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" id="text_info" rows="3" placeholder="Bemerkung" ng-blur="forms.blurCallback($event)"></textarea>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" id="check_agb" ng-blur="forms.blurCallback($event)">
+      Akzeptieren der AGB:
+    </label>
+  </div>
+  <button class="btn btn-primary" type="submit" id="button_1" ng-click="forms.onSubmit()">Next</button>
+</form>
+</div>
+
+<div class="row">
+  <div class="embed-responsive embed-responsive-1by1" ng-hide="false">
+    <!-- {{forms.getFormUrl()}} -->
+    <iframe class="embed-responsive-item" ng-src="{{forms.getFormUrl()}}" id="iframe"></iframe>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <input type="text" name="" value="" id="ff_elem922">
+
+</div> -->

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="AtavApp">
+  <head>
+    <meta charset="utf-8">
+    <title>ATAV Mobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="airport transfer wien, airporttransfer, flughafen taxi wien, taxi flughafen, taxi zum flughafen, flughafentaxi, flughafen transfer, flughafentransfer, flughafentaxi schwechat, flughafentaxi, flughafen taxi, taxi vienna airport, airporttaxi, vienna taxi, airport taxi, bestellung flughafentaxi, transfer vienna, vienna airport transfer, flughafen wien">
+    <meta name="description" content="Ihr Partner für Airport Transfers zum und vom Flughafen Wien (Flughafentaxi).
+Einfach und sicher online buchen (SSL).">
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+
+    <script type="text/javascript" src="lib/jquery-3.2.1.slim.min.js"></script>
+
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="styles/datetimepicker.css"> -->
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- <script type="text/javascript">
+      $('#datepicker').datepicker();
+      $('#datepicker').on('changeDate', function() {
+        $('#my_hidden_input').val(
+          $('#datepicker').datepicker('getFormattedDate')
+        );
+      });
+    </script> -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="embed-responsive embed-responsive-1by1" ng-hide="false">
+          <!-- {{forms.getFormUrl()}} -->
+          <iframe class="embed-responsive-item" src="https://www.atav.at/index.php?restype=2&street=&zip=&place=&zipout=&format=html&tmpl=component&option=com_breezingforms&ff_form=84&ff_page=1" id="iframe"></iframe>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="lib/popper.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/moment.min.js"></script>
+    <script type="text/javascript" src="lib/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script type="text/javascript" src="lib/datetimepicker.js"></script>
+    <!-- atavapp module -->
+    <script type="text/javascript" src="src/atavapp/atavapp.module.js"></script>
+    <script type="text/javascript" src="src/atavapp/routes.js"></script>
+    <!-- atavapp artefacts -->
+    <!-- <script type="text/javascript" src="src/atavapp/categories.component.js"></script>
+    <script type="text/javascript" src="src/atavapp/forms.controller.js"></script>
+    <script type="text/javascript" src="src/atavapp/items.component.js"></script>
+    <script type="text/javascript" src="src/atavapp/items.controller.js"></script> -->
+    <!-- loadingspinner module -->
+    <!-- <script type="text/javascript" src="src/spinner/spinner.module.js"></script> -->
+    <!-- loadingspinner artefacts -->
+    <!-- <script type="text/javascript" src="src/spinner/loadingspinner.component.js"></script> -->
+    <!-- data module -->
+    <!-- <script type="text/javascript" src="src/data/data.module.js"></script>
+    <script type="text/javascript" src="src/data/menudata.service.js"></script> -->
+  </body>
+</html>

@@ -1,0 +1,249 @@
+<script type="text/javascript">
+  $(function() {
+    $('#iframe').load(function(){
+      console.log($('#iframe').scope().forms);
+      $('#iframe').scope().forms.onIFrameLoad();
+    });
+  });
+</script>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
+  <li class="breadcrumb-item active" ng-if="forms.formType == 'to'">{{'HOME_TO_AIRPORT' | translate}}</li>
+  <li class="breadcrumb-item active" ng-if="forms.formType == 'from'">{{'HOME_FROM_AIRPORT' | translate}}</li>
+</ol>
+
+<h1 ng-if="forms.formType == 'to'">{{'HOME_TO_AIRPORT' | translate}}</h1>
+<h1 ng-if="forms.formType == 'from'">{{'HOME_FROM_AIRPORT' | translate}}</h1>
+
+<div class="row w-100">
+  <form class="form" name="orderForm" novalidate>
+    <legend ng-if="forms.formPage == 1">{{'FORM_HEADER' | translate}}</legend>
+    <legend ng-if="forms.formPage == 2">{{'FORM_HEADER_CONFIRM' | translate}}</legend>
+    <div class="form-row">
+      <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_name" name="input_name" ng-model="forms.name" translate translate-attr-placeholder="FORM_NAME" required ng-blur="forms.blurCallback($event)" ng-disabled="forms.formPage > 1">
+      </div>
+      <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_vorname" name="input_vorname" ng-model="forms.vorname" translate translate-attr-placeholder="FORM_VORNAME" required  ng-blur="forms.blurCallback($event)" ng-disabled="forms.formPage > 1">
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="input_strasse" name="input_strasse" ng-model="forms.strasse" translate translate-attr-placeholder="FORM_STRASSE" required  ng-blur="forms.blurCallback($event)" ng-disabled="forms.formPage > 1">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-6">
+        <!-- {{forms.getData().zipCodes}} -->
+        <div class="input-group mb-2 mb-sm-0">
+        <div class="input-group-addon" translate="FORM_PLZ"></div>
+        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" name="select_plz" ng-init="forms.selectedZipCode = forms.getData().zipCodes[0].value" aria-describedby="plzHelpblock" ng-blur="forms.blurCallback($event)" ng-change="forms.onSelect(zip.value, 'select_plz')" required ng-disabled="forms.formPage > 1">
+          <option>PLZ wählen</option>
+        </select>
+        <!-- <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
+          <option ng-repeat="option in forms.getData().zipCodes" value="{{option}}">{{option}}</option> -->
+          <!-- <option>1234</option>
+          <option>2234</option>
+          <option>3234</option>
+          <option>4234</option>
+          <option>5234</option> -->
+        <!-- </select> -->
+      </div>
+        <!-- <label for="select_plz">PLZ</label>
+        <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select> -->
+      </div>
+      <div class="form-group col-sm-6" ng-if="forms.outside == false">
+        <input type="text" class="form-control" id="input_ort" name="input_ort" ng-model="forms.ort" translate translate-attr-placeholder="FORM_ORT" ng-blur="forms.blurCallback($event)" disabled>
+      </div>
+      <div class="form-group col-sm-3" ng-if="forms.outside">
+        <input type="text" class="form-control" id="input_ort" name="input_ort" ng-model="forms.ort" translate translate-attr-placeholder="FORM_ORT" required  ng-blur="forms.blurCallback($event)">
+      </div>
+      <div class="form-group col-sm-3" ng-if="forms.outside">
+        <input type="text" class="form-control" id="input_plz_outside" name="input_plz_outside" ng-model="forms.plz_outside" translate translate-attr-placeholder="FORM_PLZ_OUT" required  ng-blur="forms.blurCallback($event)" maxlength="4" ng-disabled="forms.formPage > 1">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-7">
+        <!-- <datetimepicker
+        hour-step="hourStep"
+        minute-step="minuteStep"
+        ng-model="forms.date"
+        show-meridian="showMeridian"
+        date-format="{{forms.format}}"
+        date-options="dateOptions"
+        date-disabled="disabled(date, mode)"
+        datepicker-append-to-body="false"
+        readonly-date="false"
+        disabled-date="false"
+        hidden-time="false"
+        hidden-date="false"
+        name="datetimepicker"
+        show-spinners="true"
+        readonly-time="false"
+        date-opened="dateOpened"
+        show-button-bar="false"
+        min-date="minDate"
+        max-date="maxDate"
+        >
+      </datetimepicker> -->
+      <!-- <div class="input-group date">
+        <div class="input-group-addon">Datum</div>
+        <datetimepicker ng-model="forms.date"
+                  date-format="dd-MMM-yyyy"
+                  date-options="forms.dateOptions",
+                  show-meridian="forms.showMeridian",
+                  date-format="{{forms.format}}",
+                  show-spinners="false"
+                  aria-describedby="dateHelpBlock">
+        </datetimepicker>
+      </div> -->
+      <div class="row">
+        <!-- <div class="col-sm-1 mx-auto my-auto text-center">
+          <span class="fa fa-calendar"></span>
+        </div> -->
+        <div class="col-sm-12">
+          <span class="fa fa-calendar"></span>
+          <datetimepicker ng-model="forms.date"
+          date-format="dd-MMM-yyyy"
+          date-options="forms.dateOptions",
+          show-meridian="forms.showMeridian",
+          date-format="{{forms.format}}",
+          show-spinners="false"
+          aria-describedby="dateHelpBlock"
+          ng-blur="forms.blurCallback($event)"
+          id="date_datum" name="date_datum" name="date_datum" required>
+        </datetimepicker>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-sm-5">
+      <div class="input-group">
+        <div class="input-group-addon"  translate="FORM_PERSONEN"></div>
+        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock"  ng-blur="forms.blurCallback($event)" required>
+        </select>
+
+        <!-- <select id="select_personen" name="select_personen" ng-model="forms.personen" aria-describedby="personHelpblock" ng-blur="forms.blurCallback($event)" required>
+          <option selected='selected'>bitte wählen</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select> -->
+      </div>
+      <!-- <small id="personHelpBlock" class="form-text text-muted">
+        Personen
+      </small>
+      <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock">
+        <option>Anzahl Personen wählen</option>
+      </select> -->
+      <!-- <select class="form-control" id="select_personen" aria-describedby="personHelpblock">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select> -->
+    </div>
+  </div>
+  <div class="form-row" ng-if="forms.formType=='from'">
+    <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_flug" name="input_flug" ng-model="forms.flug" translate translate-attr-placeholder="FORM_FLUGNR"  ng-blur="forms.blurCallback($event)" required ng-disabled="forms.formPage > 1">
+    </div>
+    <div class="form-group col-sm-6">
+        <input type="text" class="form-control" id="input_ankunft" name="input_ankunft" ng-model="forms.ankunft" translate translate-attr-placeholder="FORM_ANKUNFT"  ng-blur="forms.blurCallback($event)" required ng-disabled="forms.formPage > 1">
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" id="input_email1" name="input_email1" ng-model="forms.email1" translate translate-attr-placeholder="FORM_EMAIL1"  ng-blur="forms.blurCallback($event)" required ng-disabled="forms.formPage > 1">
+  </div>
+  <div class="form-group">
+    <input type="email" class="form-control" id="input_email2" name="email2" ng-model="forms.email2" ng-pattern="forms.email1" translate translate-attr-placeholder="FORM_EMAIL2"  ng-blur="forms.blurCallback($event)" required ng-disabled="forms.formPage > 1">
+  </div>
+  <div class="form-group">
+    <input type="tel" class="form-control" id="input_tel" name="input_tel" ng-model="forms.tel" translate translate-attr-placeholder="FORM_TEL"  ng-blur="forms.blurCallback($event)" required ng-disabled="forms.formPage > 1">
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" id="text_info" name="text_info" ng-model="forms.info" rows="3" translate translate-attr-placeholder="FORM_INFO"  ng-blur="forms.blurCallback($event)" ng-disabled="forms.formPage > 1"></textarea>
+  </div>
+  <div class="form-row" ng-if="forms.formPage == 1">
+    <div class="col-md-4">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" id="check_agb" name="check_agb" ng-model="forms.agb" ng-blur="forms.blurCallback($event)" required>
+          {{ 'FORM_AGB' | translate}}
+        </label>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" id="check_sms" name="check_sms" ng-model="forms.sms" ng-blur="forms.blurCallback($event)">
+          {{ 'FORM_SMS' | translate}}
+        </label>
+      </div>
+    </div>
+    <!-- <div class="col-md-6" ng-if="forms.formType=='from'">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" id="check_sms" ng-blur="forms.blurCallback($event)">
+          {{ 'FORM_SMS' | translate}}
+        </label>
+      </div>
+    </div> -->
+    <div class="col-md-4">
+      <div class="form-check" ng-if="forms.formType=='from'">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" id="check_zusatz" name="check_zusatz" ng-model="forms.zusatz" ng-blur="forms.blurCallback($event)">
+          {{ 'FORM_ZUSATZ' | translate}}
+        </label>
+      </div>
+      <div class="form-check" ng-if="forms.formType=='to'">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" id="check_erinnerung" name="check_erinnerung" ng-model="forms.erinnerung" ng-blur="forms.blurCallback($event)">
+          {{ 'FORM_ERINNERUNG' | translate}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-row" ng-if="forms.formPage == 2">
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="input_klasse" name="input_klasse" ng-model="forms.klasse" translate translate-attr-placeholder="FORM_KLASSE"  ng-blur="forms.blurCallback($event)" required disabled>
+      </div>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="input_preis" name="input_preis" ng-model="forms.preis" translate translate-attr-placeholder="FORM_PREIS"  ng-blur="forms.blurCallback($event)" required disabled>
+      </div>
+  </div>
+  <div class="form-row">
+    <div class="col-sm-6" ng-if="forms.formPage > 1">
+      <button class="btn btn-primary" ng-click="forms.onBack()" translate="FORM_BACK"  id="button_0"></button>
+    </div>
+    <div class="col-sm-6" ng-if="forms.formPage == 1">
+      <button class="btn btn-primary" type="submit" ng-click="forms.onSubmit()" translate="FORM_NEXT" id="button_1" ng-disabled="orderForm.$invalid"></button>
+    </div>
+    <div class="col-sm-6" ng-if="forms.formPage > 1 && !outiside">
+      <button class="btn btn-primary" type="submit" ng-click="forms.onOrder()" translate="FORM_ORDER" id="button_order"></button>
+    </div>
+    <div class="col-sm-6" ng-if="forms.formPage > 1 && outiside">
+      <button class="btn btn-primary" type="submit" ng-click="forms.onOrder()" translate="FORM_CONFIRM_ADDRESS" id="button_confirm_adress"></button>
+    </div>
+    {{orderForm.$error.required}}
+  </div>
+</form>
+</div>
+
+<div class="row">
+  <div class="embed-responsive embed-responsive-1by1" ng-hide="false">
+    <!-- {{forms.getFormUrl()}} -->
+    <iframe class="embed-responsive-item" ng-src="{{forms.getFormUrl()}}" id="iframe"></iframe>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <input type="text" name="" value="" id="ff_elem922">
+
+</div> -->
