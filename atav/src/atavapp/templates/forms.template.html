@@ -16,9 +16,10 @@
 <h1 ng-if="forms.formType == 'to'">{{'HOME_TO_AIRPORT' | translate}}</h1>
 <h1 ng-if="forms.formType == 'from'">{{'HOME_FROM_AIRPORT' | translate}}</h1>
 
-<div class="row w-100">
-  <form class="form" name="orderForm" novalidate>
-    <legend ng-if="forms.formPage == 1">{{'FORM_HEADER' | translate}}</legend>
+<div class="row w-100"  ng-if="forms.payment == false">
+  <form class="form w-75" name="orderForm" novalidate>
+    <legend ng-if="forms.formPage == 1 && forms.formType == 'to'">{{'FORM_HEADER_TO' | translate}}</legend>
+    <legend ng-if="forms.formPage == 1 && forms.formType == 'from'">{{'FORM_HEADER_FROM' | translate}}</legend>
     <legend ng-if="forms.formPage == 2">{{'FORM_HEADER_CONFIRM' | translate}}</legend>
     <div class="form-row">
       <div class="form-group col-sm-6">
@@ -36,7 +37,7 @@
         <!-- {{forms.getData().zipCodes}} -->
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon" translate="FORM_PLZ"></div>
-        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" name="select_plz" ng-init="forms.selectedZipCode = forms.getData().zipCodes[0].value" aria-describedby="plzHelpblock" ng-blur="forms.blurCallback($event)" ng-change="forms.onSelect(zip.value, 'select_plz')" required ng-disabled="forms.formPage > 1">
+        <select ng-model="forms.selectedZipCode" ng-options="zip.value for zip in forms.getData().zipCodes" id="select_plz" name="select_plz" aria-describedby="plzHelpblock" ng-blur="forms.blurCallback($event)" ng-change="forms.onSelect(zip.value, 'select_plz')" required ng-disabled="forms.formPage > 1">
           <option>PLZ wählen</option>
         </select>
         <!-- <select class="form-control" id="select_plz" aria-describedby="plzHelpblock">
@@ -61,10 +62,10 @@
         <input type="text" class="form-control" id="input_ort" name="input_ort" ng-model="forms.ort" translate translate-attr-placeholder="FORM_ORT" ng-blur="forms.blurCallback($event)" disabled>
       </div>
       <div class="form-group col-sm-3" ng-if="forms.outside">
-        <input type="text" class="form-control" id="input_ort" name="input_ort" ng-model="forms.ort" translate translate-attr-placeholder="FORM_ORT" required  ng-blur="forms.blurCallback($event)">
+        <input type="text" class="form-control" id="input_ort" name="input_ort" ng-model="forms.ort_outside" translate translate-attr-placeholder="FORM_ORT" required  ng-blur="forms.blurCallback($event)" ng-disabled="forms.formPage > 1">
       </div>
       <div class="form-group col-sm-3" ng-if="forms.outside">
-        <input type="text" class="form-control" id="input_plz_outside" name="input_plz_outside" ng-model="forms.plz_outside" translate translate-attr-placeholder="FORM_PLZ_OUT" required  ng-blur="forms.blurCallback($event)" maxlength="4" ng-disabled="forms.formPage > 1">
+        <input type="number" class="form-control" id="input_plz_outside" name="input_plz_outside" ng-model="forms.plz_outside" translate translate-attr-placeholder="FORM_PLZ_OUT" required  ng-blur="forms.blurCallback($event)" maxlength="4" ng-disabled="forms.formPage > 1">
       </div>
     </div>
     <div class="form-row">
@@ -110,13 +111,16 @@
           <span class="fa fa-calendar"></span>
           <datetimepicker ng-model="forms.date"
           date-format="dd-MMM-yyyy"
-          date-options="forms.dateOptions",
-          show-meridian="forms.showMeridian",
-          date-format="{{forms.format}}",
-          show-spinners="false"
+          date-options="forms.dateOptions"
+          show-meridian="forms.showMeridian"
+          date-format="{{forms.format}}"
+          minute-step="5"
+          show-spinners="true"
           aria-describedby="dateHelpBlock"
           ng-blur="forms.blurCallback($event)"
-          id="date_datum" name="date_datum" name="date_datum" required>
+          ng-change="forms.onChangeDate()"
+          id="date_datum" name="date_datum" name="date_datum" required
+          ng-disabled="forms.formPage > 1">
         </datetimepicker>
         </div>
       </div>
@@ -124,7 +128,7 @@
     <div class="form-group col-sm-5">
       <div class="input-group">
         <div class="input-group-addon"  translate="FORM_PERSONEN"></div>
-        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" ng-init="forms.selectedPerson = forms.getData().persons[0].value" id="select_personen" aria-describedby="personHelpblock"  ng-blur="forms.blurCallback($event)" required>
+        <select id="select_personen" ng-model="forms.selectedPerson" ng-options="person.value for person in forms.getData().persons" id="select_personen" aria-describedby="personHelpblock"  ng-blur="forms.blurCallback($event)" required>
         </select>
 
         <!-- <select id="select_personen" name="select_personen" ng-model="forms.personen" aria-describedby="personHelpblock" ng-blur="forms.blurCallback($event)" required>
@@ -196,7 +200,7 @@
       </div>
     </div> -->
     <div class="col-md-4">
-      <div class="form-check" ng-if="forms.formType=='from'">
+      <div class="form-check">
         <label class="form-check-label">
           <input type="checkbox" class="form-check-input" id="check_zusatz" name="check_zusatz" ng-model="forms.zusatz" ng-blur="forms.blurCallback($event)">
           {{ 'FORM_ZUSATZ' | translate}}
@@ -210,12 +214,14 @@
       </div>
     </div>
   </div>
-  <div class="form-row" ng-if="forms.formPage == 2">
-      <div class="col-sm-6">
-        <input type="text" class="form-control" id="input_klasse" name="input_klasse" ng-model="forms.klasse" translate translate-attr-placeholder="FORM_KLASSE"  ng-blur="forms.blurCallback($event)" required disabled>
+  <div class="form-row" ng-show="forms.formPage == 2">
+      <div class="form-group col-sm-6">
+        <label for="input_klasse" translate="FORM_KLASSE"></label>
+        <input type="text" class="form-control" id="input_klasse" name="input_klasse" ng-model="forms.klasse" translate translate-attr-placeholder="FORM_KLASSE"  ng-blur="forms.blurCallback($event)">
       </div>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" id="input_preis" name="input_preis" ng-model="forms.preis" translate translate-attr-placeholder="FORM_PREIS"  ng-blur="forms.blurCallback($event)" required disabled>
+      <div class="form-group col-sm-6">
+        <label for="input_preis" translate="FORM_PREIS"></label>
+        <input type="text" class="form-control" id="input_preis" name="input_preis" ng-model="forms.preis" translate translate-attr-placeholder="FORM_PREIS"  ng-blur="forms.blurCallback($event)">
       </div>
   </div>
   <div class="form-row">
@@ -223,22 +229,59 @@
       <button class="btn btn-primary" ng-click="forms.onBack()" translate="FORM_BACK"  id="button_0"></button>
     </div>
     <div class="col-sm-6" ng-if="forms.formPage == 1">
-      <button class="btn btn-primary" type="submit" ng-click="forms.onSubmit()" translate="FORM_NEXT" id="button_1" ng-disabled="orderForm.$invalid"></button>
+      <button class="btn btn-primary" ng-click="forms.onSubmit()" translate="FORM_NEXT" id="button_1" ng-disabled="orderForm.$invalid"></button>
     </div>
     <div class="col-sm-6" ng-if="forms.formPage > 1 && !outiside">
-      <button class="btn btn-primary" type="submit" ng-click="forms.onOrder()" translate="FORM_ORDER" id="button_order"></button>
+      <button class="btn btn-primary" ng-click="forms.onOrder()" translate="FORM_ORDER" id="button_order"></button>
     </div>
     <div class="col-sm-6" ng-if="forms.formPage > 1 && outiside">
-      <button class="btn btn-primary" type="submit" ng-click="forms.onOrder()" translate="FORM_CONFIRM_ADDRESS" id="button_confirm_adress"></button>
+      <button class="btn btn-primary" ng-click="forms.onOrder()" translate="FORM_CONFIRM_ADDRESS" id="button_confirm_adress"></button>
     </div>
     {{orderForm.$error.required}}
   </div>
+
+  <!-- {{forms.getIFrameLocation()}} -->
+
 </form>
+</div>
+
+<div class="row" ng-if="forms.payment">
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" ng-src="images/ATAV-LOGO_s.png">
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col">
+      <p>Vielen Dank für Ihre Bestellung</p>
+      <p>
+        Sie erhalten in Kürze ein Bestätigungsmail<br/>
+        Sie möchten Ihre Fahrt <span class="font-weight-bold">bargeldlos</span> genießen? Kein Problem, bezahlen Sie jetzt via <span class="font-weight-bold">PayPal</span> oder <span class="font-weight-bold">Sofortüberweisung</span>.
+        <br/>
+        Hinweis: Die jeweiligen Gebühren gehen zu Lasten des Bestellers.
+      </p>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col">
+      <p>
+        <span class="font-weight-bold">PayPal</span>
+        <img class="img-fluid" ng-src="https://www.paypalobjects.com/de_DE/AT/i/btn/btn_paynowCC_LG.gif" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal oder direkt per Kreditkarte." ng-click="forms.onPayPal()">
+      </p>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col">
+      <p>
+        ODER <span class="font-weight-bold">Sofortüberweisung</span>
+        <img ng-src="https://images.sofort.com/at/su/100x38.png" alt="Jetzt einfach und schnell online bezahlen – mit Sofortüberweisung." ng-click="forms.onSofort()">
+      </p>
+    </div>
+  </div>
 </div>
 
 <div class="row">
   <div class="embed-responsive embed-responsive-1by1" ng-hide="false">
-    <!-- {{forms.getFormUrl()}} -->
     <iframe class="embed-responsive-item" ng-src="{{forms.getFormUrl()}}" id="iframe"></iframe>
   </div>
 </div>

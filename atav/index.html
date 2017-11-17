@@ -13,7 +13,7 @@ Einfach und sicher online buchen (SSL).">
     <script type="text/javascript" src="lib/jquery-2.1.4.min.js"></script>
 
     <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/datetimepicker.css">
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -27,7 +27,7 @@ Einfach und sicher online buchen (SSL).">
     </script> -->
   </head>
   <body>
-    <div class="container-fluid h-100">
+    <div class="container" ng-controller="MainController as main">
       <div class="jumbotron d-none d-sm-block">
         <div class="container-fluid">
           <img class="img-fluid" ng-src="images/ATAV-LOGO2.png" alt="ATAV-LOGO">
@@ -50,6 +50,8 @@ Einfach und sicher online buchen (SSL).">
     <script type="text/javascript" src="src/atavapp/routes.js"></script>
     <!-- atavapp artefacts -->
     <script type="text/javascript" src="src/atavapp/forms.controller.js"></script>
+    <script type="text/javascript" src="src/atavapp/home.controller.js"></script>
+    <script type="text/javascript" src="src/atavapp/main.controller.js"></script>
     <!-- loadingspinner module -->
     <script type="text/javascript" src="src/spinner/spinner.module.js"></script>
     <!-- loadingspinner artefacts -->
