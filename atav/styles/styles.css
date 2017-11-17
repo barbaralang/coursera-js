@@ -74,5 +74,9 @@ input[type="text"] {
 }
 
 form {
-  margin-left: 15px;
+  margin-left: 1em;
+}
+
+p {
+  margin-left: 1em;
 }

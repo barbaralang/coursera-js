@@ -32,8 +32,7 @@
          'check_zusatz': ['ff_elem5088','ff_elem5223'],
          'check_erinnerung': ['ff_elem5117'],
          'button_1': ['ff_elem5012','ff_elem5142'],
-         'button_0': ['ff_elem5013','ff_elem5143'],
-         'button_order': ['ff_elem5014','ff_elem5144']
+         'button_0': ['ff_elem5013','ff_elem5143']
        }
 
        var data = {
@@ -115,8 +114,6 @@
             });
 
        }
-
-       ctrl.payment = false;
 
        ctrl.formType = formType;
        ctrl.formPage = 1;
@@ -376,14 +373,6 @@
         console.log(ctrl.formPage);
         ctrl.getIFrameLocation();
         // ctrl.onIFrameLoad();
-       }
-
-       ctrl.onOrder = function(){
-         var el = ctrl.getIframeElementById('button_order');
-         el.click();
-         ctrl.formPage++;
-         console.log(ctrl.formPage);
-         ctrl.payment = true;
        }
 
        ctrl.getIFrameLocation = function(){

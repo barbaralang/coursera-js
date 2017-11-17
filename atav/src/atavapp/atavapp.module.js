@@ -6,7 +6,8 @@
        $translateProvider.translations('en', {
          HOME_FROM_AIRPORT: 'From Airport',
          HOME_TO_AIRPORT: 'To Airport',
-         FORM_HEADER: 'Please enter exact destination address!',
+         FORM_HEADER_FROM: 'Please enter exact destination address!',
+         FORM_HEADER_TO: 'Please enter exact pickup address!',
          FORM_HEADER_CONFIRM: 'Please confirm data',
          FORM_NAME: 'Name',
          FORM_VORNAME: 'First Name',
@@ -35,7 +36,8 @@
        $translateProvider.translations('de', {
          HOME_FROM_AIRPORT: 'Vom Flughafen',
          HOME_TO_AIRPORT: 'Zum Flughafen',
-         FORM_HEADER: 'Bitte tragen Sie hier Ihre genaue Zieladresse ein!',
+         FORM_HEADER_FROM: 'Bitte tragen Sie hier Ihre genaue Zieladresse ein!',
+         FORM_HEADER_TO: 'Bitte tragen Sie hier Ihre genaue Abholadresse ein!',
          FORM_HEADER_CONFIRM: 'Bitte überprüfen Sie Ihre Eingaben:',
          FORM_NAME: 'Name',
          FORM_VORNAME: 'Vorname',
