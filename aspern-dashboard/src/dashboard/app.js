@@ -2,7 +2,7 @@
   function() {
     'use strict';
 
-    angular.module('AspernDashboardApp', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'highcharts-ng', 'ngCookies'])
+    angular.module('AspernDashboardApp', ['daterangepicker', 'ui.router', 'ui.bootstrap', 'highcharts-ng', 'ngCookies'])
     .run( ['$rootScope', '$state', '$stateParams',
       function ($rootScope,   $state,   $stateParams) {
         $rootScope.$state = $state;
@@ -21,7 +21,7 @@
           hotWater: 'HOT_WATER',
           coldWater: 'COLD_WATER'
         }
-      }); 
+      });
 
     // Feedback Scripts Head
 

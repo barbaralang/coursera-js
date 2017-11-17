@@ -50,3 +50,35 @@ label.btn.btn-secondary.active {
 	background-color: #1e7e34 !important;
 	color: white !important;
 }
+
+button.btn.btn-secondary.active {
+	background-color: #1e7e34 !important;
+	color: white !important;
+}
+
+.form-group {
+	margin: 0px;
+}
+
+/* replace glyphicons for datepicker */
+.glyphicon {
+  display: inline-block;
+  font-family: FontAwesome !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-chevron-left:before {
+  content: "\f053";
+}
+.glyphicon-chevron-right:before {
+  content: "\f054";
+}
+.glyphicon-chevron-down:before {
+  content: "\f078";
+}
+.glyphicon-chevron-up:before {
+  content: "\f077";
+}
