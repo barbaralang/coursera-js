@@ -13,11 +13,11 @@
 
       chart.title = ChartService.getTitle();
 
-      chart.categories = ChartService.getCategories();
+      // chart.categories = ChartService.getCategories();
 
-      chart.getChartCategories = function(){
-        return chart.categories;
-      }
+      // chart.getChartCategories = function(){
+      //   return chart.categories;
+      // }
 
        chart.chartData = ChartService.getData();
 
@@ -31,15 +31,31 @@
         },
         series: [{
           data: ChartService.getData().chart,
-          name: 'configuration',
-          id: 'configuration'
+          name: 'data',
+          id: 'data'
         }],
         title: {
           text: ChartService.getTitle()
         }
         ,
         xAxis: {
-          categories: ChartService.getCategories()
+          title: {
+            text: 'm²'
+          }
+        },
+        yAxis: {
+          title: {
+            text: '€'
+          }
+        },
+        tooltip: {
+        	formatter: function () {
+//            	console.log(this.point);
+        		return '<b>m²:</b> ' + this.point.x + '<br>'
+        		+ '<b>€:</b> ' + this.point.y + '<br>'
+	          + ' <br> '
+	            ;
+            }
         }
       }
 
