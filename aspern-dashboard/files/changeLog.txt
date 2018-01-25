@@ -1,5 +1,0 @@
-<h4>Version 0.1 – 13.08.2017</h4>
-<ul>
-	<li>Web UI implemented with AngularJS</li>
-	<li>Login-Panel added</li>
-</ul>
